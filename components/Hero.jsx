@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import * as THREE from "three";
+import Link from "next/link";
 
 // Enhanced attractions data with more details
 const attractions = [
@@ -462,7 +463,9 @@ export default function ImmersiveHero() {
                   whileTap={{ scale: 0.95 }}
                   className={`px-8 py-3 rounded-full ${attractions[currentIndex].accentColor} text-white font-medium`}
                 >
+                  <Link href="/dashboard">
                   Explore Now
+                  </Link>
                 </motion.button>
 
                 <motion.button
@@ -497,7 +500,7 @@ export default function ImmersiveHero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20"
+          className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border relative -top-5 left-7 border-white/20"
         >
           <span className="text-white font-medium">INCREDIBLE INDIA</span>
         </motion.div>
