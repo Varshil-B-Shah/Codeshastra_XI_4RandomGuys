@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String         @id @default(uuid()) @db.Uuid
+  name                   String
+  email                  String         @unique
+  createdAt              DateTime       @default(now())
+
+  groupsCreated          Group[]        @relation("GroupCreatedBy")
+  groupMembers           GroupMember[]
+  debtsOwed              Debt[]         @relation("DebtOwedBy")
+  debtsPaid              Debt[]         @relation("DebtOwedTo")
+  settlementsInitiated   Settlement[]   @relation("SettlementSettledBy")
+  settlementsReceived    Settlement[]   @relation("SettlementSettledWith")
+}
+
+model Group {
+  id          String         @id @default(uuid()) @db.Uuid
+  name        String
+  createdById String?        @db.Uuid
+  createdAt   DateTime       @default(now())
+
+  createdBy   User?          @relation("GroupCreatedBy", fields: [createdById], references: [id])
+  members     GroupMember[]
+  debts       Debt[]
+  settlements Settlement[]
+}
+
+model GroupMember {
+  id       String   @id @default(uuid()) @db.Uuid
+  groupId  String   @db.Uuid
+  userId   String   @db.Uuid
+  joinedAt DateTime @default(now())
+
+  group    Group    @relation(fields: [groupId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@unique([groupId, userId])
+}
+
+model Debt {
+  id          String   @id @default(uuid()) @db.Uuid
+  groupId     String   @db.Uuid
+  owedById    String   @db.Uuid
+  owedToId    String   @db.Uuid
+  description String?
+  amount      Decimal  @db.Decimal(10, 2)
+  currency    String   @default("INR")
+  isSettled   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  group       Group    @relation(fields: [groupId], references: [id])
+  owedBy      User     @relation("DebtOwedBy", fields: [owedById], references: [id])
+  owedTo      User     @relation("DebtOwedTo", fields: [owedToId], references: [id])
+}
+
+model Settlement {
+  id             String   @id @default(uuid()) @db.Uuid
+  groupId        String   @db.Uuid
+  settledById    String   @db.Uuid
+  settledWithId  String   @db.Uuid
+  amount         Decimal  @db.Decimal(10, 2)
+  settledAt      DateTime @default(now())
+  note           String?
+
+  group          Group    @relation(fields: [groupId], references: [id])
+  settledBy      User     @relation("SettlementSettledBy", fields: [settledById], references: [id])
+  settledWith    User     @relation("SettlementSettledWith", fields: [settledWithId], references: [id])
+}
