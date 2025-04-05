@@ -2,12 +2,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaCompass, FaMapMarkedAlt, FaUsers, FaCalculator, FaVrCardboard, FaHashtag, FaBook, FaClipboardList } from 'react-icons/fa';
+import { FaCompass, FaMapMarkedAlt, FaUsers, FaCalculator, FaVrCardboard, FaHashtag, FaBook } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 
 const DashboardSidebar = () => {
   const pathname = usePathname();
-  const currentRoute = pathname.split('/').pop();
   
   const menuItems = [
     { name: 'dashboard', displayName: 'Dashboard', icon: <MdDashboard className="text-xl" />, path: '/dashboard' },
@@ -18,7 +17,6 @@ const DashboardSidebar = () => {
     { name: 'arvr', displayName: 'AR/VR Touring', icon: <FaVrCardboard className="text-xl" />, path: '/dashboard/arvr' },
     { name: 'social', displayName: 'Social Media', icon: <FaHashtag className="text-xl" />, path: '/dashboard/social' },
     { name: 'scrapbook', displayName: 'Scrap Book', icon: <FaBook className="text-xl" />, path: '/dashboard/scrapbook' },
-    { name: 'kanban', displayName: 'Kanban', icon: <FaClipboardList className="text-xl" />, path: '/dashboard/kanban' },
   ];
 
   const isActiveRoute = (path) => {
@@ -58,44 +56,23 @@ const DashboardSidebar = () => {
   );
 };
 
-const DashboardContent = () => {
-  return (
-    <div className="bg-gray-50 p-8 rounded-xl shadow-sm">
-      <h2 className="text-2xl font-bold mb-6">Welcome to Your Travel Dashboard</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[
-          { title: 'Upcoming Trips', count: 2, color: 'bg-green-100 text-green-800' },
-          { title: 'Places Explored', count: 12, color: 'bg-blue-100 text-blue-800' },
-          { title: 'Travel Budget', count: '₹25,000', color: 'bg-purple-100 text-purple-800' },
-          { title: 'Group Chats', count: 3, color: 'bg-yellow-100 text-yellow-800' },
-          { title: 'Saved Places', count: 24, color: 'bg-pink-100 text-pink-800' },
-          { title: 'Travel Photos', count: 147, color: 'bg-indigo-100 text-indigo-800' }
-        ].map((item, index) => (
-          <div key={index} className={`p-6 rounded-xl shadow-md ${item.color}`}>
-            <h3 className="text-lg font-semibold">{item.title}</h3>
-            <p className="text-3xl font-bold mt-2">{item.count}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const Dashboard = () => {
+const DashboardLayout = ({ title, children }) => {
   return (
     <div className="flex bg-gray-100 min-h-screen">
       <DashboardSidebar />
       <div className="ml-64 flex-1 p-8">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
+          <h1 className="text-3xl font-bold text-gray-800">{title}</h1>
           <p className="text-gray-600">
             Explore India - Discover the beauty of incredible India
           </p>
         </header>
-        <DashboardContent />
+        <div className="bg-gray-50 p-8 rounded-xl shadow-sm">
+          {children}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default DashboardLayout;
