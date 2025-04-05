@@ -24,12 +24,10 @@ export default function SocialMediaPage() {
   const [commentText, setCommentText] = useState("")
   const [activeTab, setActiveTab] = useState("feed") // 'feed', 'challenges', 'events'
 
-  // New state for image upload functionality
   const [selectedImage, setSelectedImage] = useState(null)
   const [imagePreview, setImagePreview] = useState(null)
   const fileInputRef = useRef(null)
 
-  // Dynamic data with state
   const [challenges, setChallenges] = useState([
     {
       id: 1,
@@ -184,7 +182,6 @@ export default function SocialMediaPage() {
     { id: 3, name: "Cultural Tour of South India", date: "Nov 10-20, 2023", attendees: 36, joined: false },
   ])
 
-  // Modified handler functions
   const handleCreatePost = () => {
     if (!postContent.trim() && !imagePreview) return
 
@@ -195,7 +192,7 @@ export default function SocialMediaPage() {
       location: "Your Location",
       time: "Just now",
       content: postContent,
-      image: imagePreview, // Add the image preview URL
+      image: imagePreview,
       likes: 0,
       liked: false,
       comments: [],
@@ -207,7 +204,6 @@ export default function SocialMediaPage() {
     setImagePreview(null)
   }
 
-  // New handler functions for image upload
   const handleImageSelect = () => {
     fileInputRef.current.click()
   }
@@ -287,7 +283,6 @@ export default function SocialMediaPage() {
       }),
     )
 
-    // Close the details panel
     setShowChallengeDetails(null)
   }
 
@@ -324,59 +319,57 @@ export default function SocialMediaPage() {
     <DashboardLayout title="Social Media">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">Travel Social Network</h2>
-          <p className="text-black mt-1">Connect with other travelers and share your experiences</p>
+          <h2 className="text-3xl font-bold text-[#2D3748]">Travel Social Network</h2>
+          <p className="text-[#4A5568] mt-1">Connect with other travelers and share your experiences</p>
         </div>
         <Link
           href="/dashboard/leaderboard"
-          className="bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm flex items-center gap-2"
+          className="bg-[#1A2B6D] text-white px-5 py-2.5 rounded-lg hover:bg-[#4C63B6] transition-all font-medium shadow-sm flex items-center gap-2 transform hover:scale-105 duration-300"
         >
           <TrendingUp className="w-4 h-4" />
           View Leaderboard
         </Link>
       </div>
 
-      {/* Navigation Tabs */}
       <div className="flex border-b mb-8">
         <button
           onClick={() => setActiveTab("feed")}
-          className={`px-4 py-2 font-medium text-sm ${activeTab === "feed" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-600 hover:text-blue-600"}`}
+          className={`px-4 py-2 font-medium text-sm transition-all ${activeTab === "feed" ? "text-[#1A2B6D] border-b-2 border-[#1A2B6D]" : "text-[#4A5568] hover:text-[#1A2B6D]"}`}
         >
           Feed
         </button>
         <button
           onClick={() => setActiveTab("challenges")}
-          className={`px-4 py-2 font-medium text-sm ${activeTab === "challenges" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-600 hover:text-blue-600"}`}
+          className={`px-4 py-2 font-medium text-sm transition-all ${activeTab === "challenges" ? "text-[#1A2B6D] border-b-2 border-[#1A2B6D]" : "text-[#4A5568] hover:text-[#1A2B6D]"}`}
         >
           Challenges
         </button>
         <button
           onClick={() => setActiveTab("events")}
-          className={`px-4 py-2 font-medium text-sm ${activeTab === "events" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-600 hover:text-blue-600"}`}
+          className={`px-4 py-2 font-medium text-sm transition-all ${activeTab === "events" ? "text-[#1A2B6D] border-b-2 border-[#1A2B6D]" : "text-[#4A5568] hover:text-[#1A2B6D]"}`}
         >
           Events
         </button>
       </div>
 
       {activeTab === "challenges" && (
-        /* Tourism Challenges Section */
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8 border border-gray-100">
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8 border border-[#E2E8F0] animate-fadeIn transition-all hover:shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h3 className="text-2xl font-bold text-gray-800">Tourism Challenges</h3>
-              <p className="text-gray-600 mt-1">
+              <h3 className="text-2xl font-bold text-[#2D3748]">Tourism Challenges</h3>
+              <p className="text-[#4A5568] mt-1">
                 Complete these challenges by visiting famous locations across India. Earn points and climb the
                 leaderboard!
               </p>
             </div>
-            <button className="text-blue-600 hover:text-blue-800 font-medium">View All Challenges</button>
+            <button className="text-[#1A2B6D] hover:text-[#009688] font-medium transition-colors">View All Challenges</button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {challenges.map((challenge) => (
               <div
                 key={challenge.id}
-                className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 bg-white"
+                className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 bg-white transform hover:scale-105"
               >
                 <div className="relative">
                   <img
@@ -394,7 +387,7 @@ export default function SocialMediaPage() {
                   )}
                 </div>
                 <div className="p-5">
-                  <h4 className="font-bold text-lg text-gray-800">{challenge.title}</h4>
+                  <h4 className="font-bold text-lg text-[#2D3748]">{challenge.title}</h4>
                   <p className="text-sm text-gray-600 mt-2">{challenge.description}</p>
                   <div className="flex justify-between items-center mt-4">
                     <span className="text-xs text-gray-500 flex items-center gap-1">
@@ -407,7 +400,7 @@ export default function SocialMediaPage() {
                   </div>
                   <button
                     onClick={() => setShowChallengeDetails(showChallengeDetails === challenge.id ? null : challenge.id)}
-                    className="mt-4 text-blue-600 text-sm font-medium hover:text-blue-800 w-full text-left flex items-center gap-1"
+                    className="mt-4 text-[#1A2B6D] text-sm font-medium hover:text-[#009688] w-full text-left flex items-center gap-1 transition-colors"
                   >
                     {showChallengeDetails === challenge.id ? "Hide details" : "Show details"}
                   </button>
@@ -423,12 +416,12 @@ export default function SocialMediaPage() {
                       {!challenge.accepted ? (
                         <button
                           onClick={() => handleAcceptChallenge(challenge.id)}
-                          className="mt-4 w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                          className="mt-4 w-full bg-[#009688] text-white py-2.5 rounded-lg hover:bg-[#00796B] transition-all font-medium"
                         >
                           Accept Challenge
                         </button>
                       ) : (
-                        <div className="mt-4 text-center py-2 bg-gray-100 rounded-lg text-gray-700 font-medium">
+                        <div className="mt-4 text-center py-2 bg-[#EBF4FF] rounded-lg text-[#1A2B6D] font-medium">
                           Challenge Accepted
                         </div>
                       )}
@@ -442,32 +435,32 @@ export default function SocialMediaPage() {
       )}
 
       {activeTab === "events" && (
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8 border border-gray-100">
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8 border border-[#E2E8F0] animate-fadeIn transition-all hover:shadow-lg">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h3 className="text-2xl font-bold text-gray-800">Upcoming Travel Events</h3>
-              <p className="text-gray-600 mt-1">Join travel events and connect with fellow travelers</p>
+              <h3 className="text-2xl font-bold text-[#2D3748]">Upcoming Travel Events</h3>
+              <p className="text-[#4A5568] mt-1">Join travel events and connect with fellow travelers</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
-              <div key={event.id} className="border border-gray-200 p-5 rounded-xl hover:shadow-md transition-all">
-                <h4 className="font-bold text-lg text-gray-800">{event.name}</h4>
-                <div className="flex items-center text-sm text-gray-600 mt-3">
+              <div key={event.id} className="border border-[#E2E8F0] p-5 rounded-xl hover:shadow-md transition-all transform hover:scale-105 duration-300">
+                <h4 className="font-bold text-lg text-[#2D3748]">{event.name}</h4>
+                <div className="flex items-center text-sm text-[#4A5568] mt-3">
                   <Calendar className="w-4 h-4 mr-2" />
                   {event.date}
                 </div>
-                <p className="text-sm text-gray-500 mt-3 flex items-center">
+                <p className="text-sm text-[#4A5568] mt-3 flex items-center">
                   <Users className="w-4 h-4 mr-2" />
                   {event.attendees} travelers joined
                 </p>
                 <button
                   onClick={() => handleJoinEvent(event.id)}
-                  className={`mt-4 text-sm px-4 py-2 rounded-lg transition-colors w-full font-medium ${
+                  className={`mt-4 text-sm px-4 py-2 rounded-lg transition-all w-full font-medium ${
                     event.joined
-                      ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                      : "bg-blue-600 text-white hover:bg-blue-700"
+                      ? "bg-[#F9FAFB] text-[#2D3748] hover:bg-[#EBF4FF]"
+                      : "bg-[#1A2B6D] text-white hover:bg-[#4C63B6]"
                   }`}
                 >
                   {event.joined ? "Leave Event" : "Join Event"}
@@ -480,10 +473,8 @@ export default function SocialMediaPage() {
 
       {activeTab === "feed" && (
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Content feed */}
           <div className="lg:w-8/12 space-y-8">
-            {/* Create post */}
-            <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
+            <div className="bg-white rounded-xl shadow-md p-5 border border-[#E2E8F0] transition-all hover:shadow-lg">
               <div className="flex items-start space-x-4 mb-4">
                 <img
                   src="https://pbs.twimg.com/media/Fkln43cWAAEPOB1.jpg"
@@ -498,7 +489,6 @@ export default function SocialMediaPage() {
                     onChange={(e) => setPostContent(e.target.value)}
                   />
                   
-                  {/* Image preview */}
                   {imagePreview && (
                     <div className="mt-3 relative">
                       <img 
@@ -530,25 +520,25 @@ export default function SocialMediaPage() {
                   />
                   <button 
                     onClick={handleImageSelect} 
-                    className="flex items-center text-gray-600 hover:text-blue-500 transition-colors p-2 rounded-lg"
+                    className="flex items-center text-[#4A5568] hover:text-[#1A2B6D] transition-colors p-2 rounded-lg"
                   >
                     <ImageIcon className="w-5 h-5 mr-2" />
                     Photo
                   </button>
-                  <button className="flex items-center text-gray-600 hover:text-blue-500 transition-colors p-2 rounded-lg">
+                  <button className="flex items-center text-[#4A5568] hover:text-[#1A2B6D] transition-colors p-2 rounded-lg">
                     <MapPin className="w-5 h-5 mr-2" />
                     Location
                   </button>
-                  <button className="flex items-center text-gray-600 hover:text-blue-500 transition-colors p-2 rounded-lg">
+                  <button className="flex items-center text-[#4A5568] hover:text-[#1A2B6D] transition-colors p-2 rounded-lg">
                     <Smile className="w-5 h-5 mr-2" />
                     Feeling
                   </button>
                 </div>
                 <button
-                  className={`px-5 py-2 rounded-lg transition-colors font-medium ${
+                  className={`px-5 py-2 rounded-lg transition-all font-medium ${
                     (postContent.trim() || imagePreview)
-                      ? "bg-blue-600 text-white hover:bg-blue-700"
-                      : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                      ? "bg-[#1A2B6D] text-white hover:bg-[#4C63B6] transform hover:scale-105"
+                      : "bg-[#F9FAFB] text-[#9CA3AF] cursor-not-allowed"
                   }`}
                   onClick={handleCreatePost}
                   disabled={!postContent.trim() && !imagePreview}
@@ -558,9 +548,8 @@ export default function SocialMediaPage() {
               </div>
             </div>
 
-            {/* Posts */}
             {posts.map((post) => (
-              <div key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+              <div key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden border border-[#E2E8F0] transition-all hover:shadow-lg animate-fadeIn">
                 <div className="p-5">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-3">
@@ -570,8 +559,8 @@ export default function SocialMediaPage() {
                         className="w-12 h-12 rounded-full object-cover border border-gray-200"
                       />
                       <div>
-                        <p className="font-semibold text-gray-800">{post.user}</p>
-                        <div className="flex items-center text-xs text-gray-500 mt-0.5">
+                        <p className="font-semibold text-[#2D3748]">{post.user}</p>
+                        <div className="flex items-center text-xs text-[#4A5568] mt-0.5">
                           {post.location && (
                             <>
                               <MapPinned className="w-3 h-3 mr-1" />
@@ -583,11 +572,11 @@ export default function SocialMediaPage() {
                         </div>
                       </div>
                     </div>
-                    <button className="text-gray-500 hover:text-gray-700 p-1.5 rounded-full hover:bg-gray-100 transition-colors">
+                    <button className="text-[#4A5568] hover:text-[#2D3748] p-1.5 rounded-full hover:bg-[#E2E8F0] transition-colors">
                       <MoreHorizontal className="w-5 h-5" />
                     </button>
                   </div>
-                  <p className="my-4 text-gray-700">{post.content}</p>
+                  <p className="my-4 text-[#4A5568]">{post.content}</p>
                 </div>
                 {post.image && (
                   <img src={post.image || "/placeholder.svg"} alt="Post" className="w-full h-96 object-cover" />
@@ -596,7 +585,7 @@ export default function SocialMediaPage() {
                   <div className="flex justify-between items-center mb-4">
                     <div className="flex space-x-6">
                       <button
-                        className={`flex items-center space-x-2 ${post.liked ? "text-blue-600" : "text-gray-600"} hover:text-blue-500 transition-colors`}
+                        className={`flex items-center space-x-2 ${post.liked ? "text-[#1A2B6D]" : "text-[#4A5568]"} hover:text-[#1A2B6D] transition-colors`}
                         onClick={() => handleLikePost(post.id)}
                       >
                         <ThumbsUp className="w-5 h-5" />
@@ -605,7 +594,7 @@ export default function SocialMediaPage() {
                         </span>
                       </button>
                       <button
-                        className="flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors"
+                        className="flex items-center space-x-2 text-[#4A5568] hover:text-[#1A2B6D] transition-colors"
                         onClick={() => setShowComments(showComments === post.id ? null : post.id)}
                       >
                         <MessageSquare className="w-5 h-5" />
@@ -614,7 +603,7 @@ export default function SocialMediaPage() {
                         </span>
                       </button>
                     </div>
-                    <button className="flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors">
+                    <button className="flex items-center space-x-2 text-[#4A5568] hover:text-[#1A2B6D] transition-colors">
                       <Share2 className="w-5 h-5" />
                       <span className="font-medium">Share</span>
                     </button>
@@ -631,18 +620,18 @@ export default function SocialMediaPage() {
                                 alt={comment.user}
                                 className="w-8 h-8 rounded-full object-cover"
                               />
-                              <div className="flex-1 bg-gray-100 p-3 rounded-lg">
+                              <div className="flex-1 bg-[#F9FAFB] p-3 rounded-lg">
                                 <div className="flex justify-between items-start">
-                                  <p className="font-medium text-sm text-gray-800">{comment.user}</p>
-                                  <span className="text-xs text-gray-500">{comment.time}</span>
+                                  <p className="font-medium text-sm text-[#2D3748]">{comment.user}</p>
+                                  <span className="text-xs text-[#4A5568]">{comment.time}</span>
                                 </div>
-                                <p className="text-sm mt-1 text-gray-800">{comment.text}</p>
+                                <p className="text-sm mt-1 text-[#2D3748]">{comment.text}</p>
                               </div>
                             </div>
                           ))}
                         </div>
                       ) : (
-                        <p className="text-center text-gray-500 text-sm my-4 font-medium">
+                        <p className="text-center text-[#4A5568] text-sm my-4 font-medium">
                           No comments yet. Be the first to comment!
                         </p>
                       )}
@@ -657,7 +646,7 @@ export default function SocialMediaPage() {
                           <input
                             type="text"
                             placeholder="Write a comment..."
-                            className="bg-gray-100 p-2.5 pr-10 px-4 rounded-full w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all text-gray-800 placeholder:text-gray-500 placeholder:opacity-100"
+                            className="bg-[#F9FAFB] p-2.5 pr-10 px-4 rounded-full w-full text-sm focus:outline-none focus:ring-2 focus:ring-[#1A2B6D] focus:bg-white transition-all text-[#2D3748] placeholder:text-[#4A5568] placeholder:opacity-100"
                             value={commentText}
                             onChange={(e) => setCommentText(e.target.value)}
                             onKeyPress={(e) => {
@@ -667,7 +656,7 @@ export default function SocialMediaPage() {
                             }}
                           />
                           <button
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 hover:text-blue-800"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#1A2B6D] hover:text-[#009688]"
                             onClick={() => handleAddComment(post.id)}
                             disabled={!commentText.trim()}
                           >
@@ -688,7 +677,7 @@ export default function SocialMediaPage() {
                       <input
                         type="text"
                         placeholder="Write a comment..."
-                        className="bg-gray-100 p-2.5 px-4 rounded-full w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all text-gray-800 placeholder:text-gray-500 placeholder:opacity-100"
+                        className="bg-[#F9FAFB] p-2.5 px-4 rounded-full w-full text-sm focus:outline-none focus:ring-2 focus:ring-[#1A2B6D] focus:bg-white transition-all text-[#2D3748] placeholder:text-[#4A5568] placeholder:opacity-100"
                         onClick={() => setShowComments(post.id)}
                       />
                     </div>
@@ -698,13 +687,11 @@ export default function SocialMediaPage() {
             ))}
           </div>
 
-          {/* Sidebar */}
           <div className="lg:w-4/12 space-y-8">
-            {/* Trending destinations */}
-            <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
+            <div className="bg-white rounded-xl shadow-md p-5 border border-[#E2E8F0] transition-all hover:shadow-lg">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-gray-800 flex items-center">
-                  <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
+                <h3 className="text-lg font-bold text-[#2D3748] flex items-center">
+                  <TrendingUp className="w-5 h-5 mr-2 text-[#1A2B6D]" />
                   Trending Destinations
                 </h3>
               </div>
@@ -712,28 +699,27 @@ export default function SocialMediaPage() {
                 {destinations.map((destination) => (
                   <div
                     key={destination.id}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-[#F9FAFB] transition-colors cursor-pointer"
                   >
                     <div>
-                      <p className="font-medium text-gray-800">{destination.name}</p>
-                      <p className="text-sm text-blue-500 mt-0.5">{destination.hashtag}</p>
+                      <p className="font-medium text-[#2D3748]">{destination.name}</p>
+                      <p className="text-sm text-[#1A2B6D] mt-0.5">{destination.hashtag}</p>
                     </div>
-                    <span className="text-xs text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
+                    <span className="text-xs text-[#4A5568] bg-[#F9FAFB] px-2.5 py-1 rounded-full">
                       {destination.count}
                     </span>
                   </div>
                 ))}
               </div>
-              <button className="text-blue-600 text-sm mt-4 hover:text-blue-800 font-medium w-full text-center pt-3 border-t">
+              <button className="text-[#1A2B6D] text-sm mt-4 hover:text-[#009688] font-medium w-full text-center pt-3 border-t transition-colors">
                 See More Destinations
               </button>
             </div>
 
-            {/* Travel buddies suggestions */}
-            <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
+            <div className="bg-white rounded-xl shadow-md p-5 border border-[#E2E8F0] transition-all hover:shadow-lg">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-gray-800 flex items-center">
-                  <Users className="w-5 h-5 mr-2 text-blue-600" />
+                <h3 className="text-lg font-bold text-[#2D3748] flex items-center">
+                  <Users className="w-5 h-5 mr-2 text-[#1A2B6D]" />
                   Travel Buddies Suggestions
                 </h3>
               </div>
@@ -741,7 +727,7 @@ export default function SocialMediaPage() {
                 {travelBuddies.map((buddy) => (
                   <div
                     key={buddy.id}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center justify-between p-3 rounded-lg hover:bg-[#F9FAFB] transition-colors"
                   >
                     <div className="flex items-center space-x-3">
                       <img
@@ -750,16 +736,16 @@ export default function SocialMediaPage() {
                         className="w-12 h-12 rounded-full object-cover border border-gray-200"
                       />
                       <div>
-                        <p className="font-medium text-gray-800">{buddy.name}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{buddy.mutualFriends} mutual friends</p>
+                        <p className="font-medium text-[#2D3748]">{buddy.name}</p>
+                        <p className="text-xs text-[#4A5568] mt-0.5">{buddy.mutualFriends} mutual friends</p>
                       </div>
                     </div>
                     <button
                       onClick={() => handleFollowBuddy(buddy.id)}
                       className={`text-sm font-medium px-3 py-1.5 rounded-lg transition-colors ${
                         buddy.following
-                          ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                          : "bg-blue-50 text-blue-600 hover:bg-blue-100"
+                          ? "bg-[#F9FAFB] text-[#2D3748] hover:bg-[#EBF4FF]"
+                          : "bg-[#EBF4FF] text-[#1A2B6D] hover:bg-[#F9FAFB]"
                       }`}
                     >
                       {buddy.following ? "Following" : "Follow"}
@@ -769,11 +755,10 @@ export default function SocialMediaPage() {
               </div>
             </div>
 
-            {/* Travel events */}
-            <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
+            <div className="bg-white rounded-xl shadow-md p-5 border border-[#E2E8F0] transition-all hover:shadow-lg">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-gray-800 flex items-center">
-                  <Calendar className="w-5 h-5 mr-2 text-blue-600" />
+                <h3 className="text-lg font-bold text-[#2D3748] flex items-center">
+                  <Calendar className="w-5 h-5 mr-2 text-[#1A2B6D]" />
                   Upcoming Travel Events
                 </h3>
               </div>
@@ -781,20 +766,20 @@ export default function SocialMediaPage() {
                 {events.map((event) => (
                   <div
                     key={event.id}
-                    className="border border-gray-200 p-4 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="border border-[#E2E8F0] p-4 rounded-lg hover:bg-[#F9FAFB] transition-colors"
                   >
-                    <h4 className="font-medium text-gray-800">{event.name}</h4>
-                    <div className="flex items-center text-sm text-gray-600 mt-2">
+                    <h4 className="font-medium text-[#2D3748]">{event.name}</h4>
+                    <div className="flex items-center text-sm text-[#4A5568] mt-2">
                       <Calendar className="w-4 h-4 mr-1.5" />
                       {event.date}
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">{event.attendees} travelers joined</p>
+                    <p className="text-xs text-[#4A5568] mt-2">{event.attendees} travelers joined</p>
                     <button
                       onClick={() => handleJoinEvent(event.id)}
                       className={`mt-3 text-sm px-4 py-1.5 rounded-lg transition-colors w-full font-medium ${
                         event.joined
-                          ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                          : "bg-blue-600 text-white hover:bg-blue-700"
+                          ? "bg-[#F9FAFB] text-[#2D3748] hover:bg-[#EBF4FF]"
+                          : "bg-[#1A2B6D] text-white hover:bg-[#4C63B6]"
                       }`}
                     >
                       {event.joined ? "Leave Event" : "Join Event"}

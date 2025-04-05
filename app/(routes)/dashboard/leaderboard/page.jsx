@@ -156,15 +156,15 @@ export default function LeaderboardPage() {
   const getColorClass = (color) => {
     switch (color) {
       case "blue":
-        return "border-blue-500 bg-blue-50 text-blue-600"
+        return "border-[#1A2B6D] bg-[#EBF4FF] text-[#1A2B6D]"
       case "green":
-        return "border-green-500 bg-green-50 text-green-600"
+        return "border-[#009688] bg-[#E6FFFA] text-[#009688]"
       case "purple":
-        return "border-purple-500 bg-purple-50 text-purple-600"
+        return "border-[#9F7AEA] bg-[#F3E8FF] text-[#9F7AEA]"
       case "amber":
-        return "border-amber-500 bg-amber-50 text-amber-600"
+        return "border-[#FF5722] bg-[#FFFBEB] text-[#FF5722]"
       default:
-        return "border-gray-500 bg-gray-50 text-gray-600"
+        return "border-[#2D3748] bg-[#F9FAFB] text-[#2D3748]"
     }
   }
 
@@ -172,12 +172,12 @@ export default function LeaderboardPage() {
     <DashboardLayout title="Leaderboard">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">Travel Masters Leaderboard</h2>
-          <p className="text-gray-600 mt-1">See who's leading the pack in travel experiences across India</p>
+          <h2 className="text-3xl font-bold text-[#2D3748]">Travel Masters Leaderboard</h2>
+          <p className="text-[#4A5568] mt-1">See who's leading the pack in travel experiences across India</p>
         </div>
         <Link
           href="/dashboard/social"
-          className="flex items-center text-blue-600 hover:text-blue-800 font-medium"
+          className="flex items-center text-[#1A2B6D] hover:text-[#009688] font-medium transition-all"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
           Back to Social
@@ -189,10 +189,10 @@ export default function LeaderboardPage() {
         {statsCards.map((stat, index) => (
           <div
             key={index}
-            className={`bg-white rounded-xl shadow-md p-5 border-t-4 ${getColorClass(stat.color)} flex items-center justify-between transition-transform hover:scale-105 duration-200`}
+            className={`bg-white rounded-xl shadow-md p-5 border-t-4 ${getColorClass(stat.color)} flex items-center justify-between transition-all hover:shadow-lg hover:scale-105 duration-300`}
           >
             <div>
-              <h3 className="text-gray-500 text-sm font-medium">{stat.title}</h3>
+              <h3 className="text-[#4A5568] text-sm font-medium">{stat.title}</h3>
               <p className="text-2xl font-bold mt-1">{stat.value}</p>
             </div>
             <div className={`p-3 rounded-full bg-opacity-20 ${getColorClass(stat.color)}`}>{stat.icon}</div>
@@ -201,10 +201,10 @@ export default function LeaderboardPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-md p-6 mb-8 border border-gray-100">
+      <div className="bg-white rounded-xl shadow-md p-6 mb-8 border border-[#E2E8F0] transition-all hover:shadow-lg">
         <div className="flex flex-col sm:flex-row justify-between mb-6">
-          <h3 className="text-xl font-bold text-gray-800 mb-3 sm:mb-0 flex items-center">
-            <Trophy className="w-5 h-5 mr-2 text-amber-500" />
+          <h3 className="text-xl font-bold text-[#2D3748] mb-3 sm:mb-0 flex items-center">
+            <Trophy className="w-5 h-5 mr-2 text-[#FF5722]" />
             Leaderboard Rankings
           </h3>
         </div>
@@ -214,21 +214,21 @@ export default function LeaderboardPage() {
           <div className="flex flex-col md:flex-row justify-center items-end mb-16 space-y-8 md:space-y-0 relative">
             {/* 2nd Place */}
             {leaderboardData.length > 1 && (
-              <div className="flex flex-col items-center mx-4 md:order-1 relative">
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-300 w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold shadow-md">
+              <div className="flex flex-col items-center mx-4 md:order-1 relative animate-fadeIn">
+                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-[#E2E8F0] w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold shadow-md">
                   2
                 </div>
-                <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-gray-300 mb-2 shadow-lg">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-[#E2E8F0] mb-2 shadow-lg">
                   <img
                     src={leaderboardData[1]?.image || "/placeholder.svg"}
                     alt={leaderboardData[1]?.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="bg-gray-300 text-center p-4 rounded-xl w-full max-w-[180px] shadow-md">
-                  <h4 className="font-bold text-gray-800">{leaderboardData[1]?.name}</h4>
+                <div className="bg-[#E2E8F0] text-center p-4 rounded-xl w-full max-w-[180px] shadow-md">
+                  <h4 className="font-bold text-[#2D3748]">{leaderboardData[1]?.name}</h4>
                   <p className="text-xl font-bold mt-1">{leaderboardData[1]?.points} pts</p>
-                  <div className="text-sm text-gray-700 mt-1 flex items-center justify-center gap-1">
+                  <div className="text-sm text-[#4A5568] mt-1 flex items-center justify-center gap-1">
                     <MapPin className="w-3 h-3" />
                     {leaderboardData[1]?.placesVisited} places
                   </div>
@@ -238,27 +238,27 @@ export default function LeaderboardPage() {
 
             {/* 1st Place */}
             {leaderboardData.length > 0 && (
-              <div className="flex flex-col items-center mx-4 md:order-2 relative z-10 transform md:scale-110">
-                <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-amber-400 w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold shadow-lg">
+              <div className="flex flex-col items-center mx-4 md:order-2 relative z-10 transform md:scale-110 animate-fadeIn">
+                <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 bg-[#FF5722] w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold shadow-lg">
                   1
                 </div>
-                <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-amber-400 mb-2 shadow-lg">
+                <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-[#FF5722] mb-2 shadow-lg">
                   <img
                     src={leaderboardData[0]?.image || "/placeholder.svg"}
                     alt={leaderboardData[0]?.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="bg-gradient-to-b from-amber-400 to-amber-500 text-center p-5 rounded-xl w-full max-w-[200px] shadow-lg">
-                  <h4 className="font-bold text-gray-900">{leaderboardData[0]?.name}</h4>
-                  <p className="text-2xl font-bold mt-1">{leaderboardData[0]?.points} pts</p>
-                  <div className="text-sm text-gray-800 mt-1 flex items-center justify-center gap-1">
+                <div className="bg-gradient-to-b from-[#FF5722] to-[#FF7E67] text-center p-5 rounded-xl w-full max-w-[200px] shadow-lg">
+                  <h4 className="font-bold text-white">{leaderboardData[0]?.name}</h4>
+                  <p className="text-2xl font-bold mt-1 text-white">{leaderboardData[0]?.points} pts</p>
+                  <div className="text-sm text-white mt-1 flex items-center justify-center gap-1">
                     <MapPin className="w-3 h-3" />
                     {leaderboardData[0]?.placesVisited} places
                   </div>
                   <div className="mt-2 flex flex-wrap justify-center gap-1">
                     {leaderboardData[0]?.badges.slice(0, 2).map((badge, idx) => (
-                      <span key={idx} className="px-2 py-0.5 bg-amber-200 text-amber-800 text-xs rounded-full">
+                      <span key={idx} className="px-2 py-0.5 bg-white/20 text-white text-xs rounded-full">
                         {badge}
                       </span>
                     ))}
@@ -269,18 +269,18 @@ export default function LeaderboardPage() {
 
             {/* 3rd Place */}
             {leaderboardData.length > 2 && (
-              <div className="flex flex-col items-center mx-4 md:order-3 relative">
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-amber-700 w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-md">
+              <div className="flex flex-col items-center mx-4 md:order-3 relative animate-fadeIn">
+                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-[#CD7F32] w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-md">
                   3
                 </div>
-                <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-amber-700 mb-2 shadow-lg">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-[#CD7F32] mb-2 shadow-lg">
                   <img
                     src={leaderboardData[2]?.image || "/placeholder.svg"}
                     alt={leaderboardData[2]?.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="bg-amber-700 text-white text-center p-4 rounded-xl w-full max-w-[180px] shadow-md">
+                <div className="bg-[#CD7F32] text-white text-center p-4 rounded-xl w-full max-w-[180px] shadow-md">
                   <h4 className="font-bold">{leaderboardData[2]?.name}</h4>
                   <p className="text-xl font-bold mt-1">{leaderboardData[2]?.points} pts</p>
                   <div className="text-sm mt-1 flex items-center justify-center gap-1">
@@ -297,7 +297,7 @@ export default function LeaderboardPage() {
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white rounded-lg overflow-hidden">
             <thead>
-              <tr className="bg-gray-100 text-gray-700">
+              <tr className="bg-[#F9FAFB] text-[#2D3748]">
                 <th className="py-3 px-4 text-left font-semibold">Rank</th>
                 <th className="py-3 px-4 text-left font-semibold">Traveler</th>
                 <th className="py-3 px-4 text-left font-semibold cursor-pointer" onClick={() => handleSort("places")}>
@@ -341,32 +341,32 @@ export default function LeaderboardPage() {
             </thead>
             <tbody>
               {leaderboardData.slice(3).map((user) => (
-                <tr key={user.id} className="border-t hover:bg-gray-50 transition-colors">
+                <tr key={user.id} className="border-t hover:bg-[#F9FAFB] transition-colors">
                   <td className="py-4 px-4">
-                    <span className="font-bold text-gray-800">{user.rank}</span>
+                    <span className="font-bold text-[#2D3748]">{user.rank}</span>
                   </td>
                   <td className="py-4 px-4">
                     <div className="flex items-center">
                       <img
                         src={user.image || "/placeholder.svg"}
                         alt={user.name}
-                        className="w-10 h-10 rounded-full mr-3 object-cover border border-gray-200"
+                        className="w-10 h-10 rounded-full mr-3 object-cover border border-[#E2E8F0]"
                       />
-                      <span className="font-medium text-gray-800">{user.name}</span>
+                      <span className="font-medium text-[#2D3748]">{user.name}</span>
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-gray-700">{user.placesVisited}</td>
-                  <td className="py-4 px-4 text-gray-700">{user.challengesCompleted}</td>
+                  <td className="py-4 px-4 text-[#4A5568]">{user.placesVisited}</td>
+                  <td className="py-4 px-4 text-[#4A5568]">{user.challengesCompleted}</td>
                   <td className="py-4 px-4">
                     <div className="flex flex-wrap gap-1">
                       {user.badges.map((badge, idx) => (
-                        <span key={idx} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                        <span key={idx} className="px-2 py-1 bg-[#EBF4FF] text-[#1A2B6D] text-xs rounded-full">
                           {badge}
                         </span>
                       ))}
                     </div>
                   </td>
-                  <td className="py-4 px-4 text-right font-bold text-gray-800">{user.points}</td>
+                  <td className="py-4 px-4 text-right font-bold text-[#2D3748]">{user.points}</td>
                 </tr>
               ))}
             </tbody>
@@ -375,39 +375,39 @@ export default function LeaderboardPage() {
       </div>
 
       {/* How to earn points */}
-      <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-        <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
-          <Award className="w-5 h-5 mr-2 text-blue-600" />
+      <div className="bg-white rounded-xl shadow-md p-6 border border-[#E2E8F0] transition-all hover:shadow-lg">
+        <h3 className="text-xl font-bold text-[#2D3748] mb-6 flex items-center">
+          <Award className="w-5 h-5 mr-2 text-[#1A2B6D]" />
           How to Earn Points
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="border rounded-xl p-5 bg-blue-50 hover:shadow-md transition-shadow">
-            <h4 className="font-semibold mb-2 text-blue-800">Visit Popular Destinations</h4>
-            <p className="text-sm text-gray-700">
+          <div className="border rounded-xl p-5 bg-[#EBF4FF] hover:shadow-md transition-all hover:scale-105 duration-300">
+            <h4 className="font-semibold mb-2 text-[#1A2B6D]">Visit Popular Destinations</h4>
+            <p className="text-sm text-[#4A5568]">
               Check-in at popular tourist spots to earn 50-100 points per location.
             </p>
           </div>
-          <div className="border rounded-xl p-5 bg-green-50 hover:shadow-md transition-shadow">
-            <h4 className="font-semibold mb-2 text-green-800">Complete Challenges</h4>
-            <p className="text-sm text-gray-700">Finish themed challenges to earn 200-500 points per challenge.</p>
+          <div className="border rounded-xl p-5 bg-[#E6FFFA] hover:shadow-md transition-all hover:scale-105 duration-300">
+            <h4 className="font-semibold mb-2 text-[#009688]">Complete Challenges</h4>
+            <p className="text-sm text-[#4A5568]">Finish themed challenges to earn 200-500 points per challenge.</p>
           </div>
-          <div className="border rounded-xl p-5 bg-purple-50 hover:shadow-md transition-shadow">
-            <h4 className="font-semibold mb-2 text-purple-800">Share Travel Stories</h4>
-            <p className="text-sm text-gray-700">Post your experiences with photos to earn 20-50 points per post.</p>
+          <div className="border rounded-xl p-5 bg-[#F3E8FF] hover:shadow-md transition-all hover:scale-105 duration-300">
+            <h4 className="font-semibold mb-2 text-[#9F7AEA]">Share Travel Stories</h4>
+            <p className="text-sm text-[#4A5568]">Post your experiences with photos to earn 20-50 points per post.</p>
           </div>
-          <div className="border rounded-xl p-5 bg-amber-50 hover:shadow-md transition-shadow">
-            <h4 className="font-semibold mb-2 text-amber-800">Earn Badges</h4>
-            <p className="text-sm text-gray-700">
+          <div className="border rounded-xl p-5 bg-[#FFFBEB] hover:shadow-md transition-all hover:scale-105 duration-300">
+            <h4 className="font-semibold mb-2 text-[#FF5722]">Earn Badges</h4>
+            <p className="text-sm text-[#4A5568]">
               Collect special badges for themed achievements for 100-300 bonus points.
             </p>
           </div>
-          <div className="border rounded-xl p-5 bg-red-50 hover:shadow-md transition-shadow">
-            <h4 className="font-semibold mb-2 text-red-800">Hidden Gems</h4>
-            <p className="text-sm text-gray-700">Discover and check-in at lesser-known spots for 75-150 points.</p>
+          <div className="border rounded-xl p-5 bg-[#FEEBEF] hover:shadow-md transition-all hover:scale-105 duration-300">
+            <h4 className="font-semibold mb-2 text-[#FF7E67]">Hidden Gems</h4>
+            <p className="text-sm text-[#4A5568]">Discover and check-in at lesser-known spots for 75-150 points.</p>
           </div>
-          <div className="border rounded-xl p-5 bg-indigo-50 hover:shadow-md transition-shadow">
-            <h4 className="font-semibold mb-2 text-indigo-800">Refer Friends</h4>
-            <p className="text-sm text-gray-700">Get 100 points for each friend who joins the challenge.</p>
+          <div className="border rounded-xl p-5 bg-[#EEF2FF] hover:shadow-md transition-all hover:scale-105 duration-300">
+            <h4 className="font-semibold mb-2 text-[#4C63B6]">Refer Friends</h4>
+            <p className="text-sm text-[#4A5568]">Get 100 points for each friend who joins the challenge.</p>
           </div>
         </div>
       </div>

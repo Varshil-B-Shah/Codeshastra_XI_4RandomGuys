@@ -259,7 +259,7 @@ export default function ExpensesPage() {
   const weeklyData = calculateWeeklyData();
   const dailyData = calculateDailySpending();
 
-  const COLORS = ['#4F46E5', '#0EA5E9', '#10B981', '#F59E0B', '#EC4899', '#8B5CF6', '#6366F1', '#EF4444'];
+  const COLORS = ['#1A2B6D', '#4C63B6', '#009688', '#4FD1C5', '#FF5722', '#FF7E67', '#9F7AEA', '#EF4444'];
 
   const filteredExpenses = expenseData
     .filter(expense => {
@@ -369,12 +369,12 @@ export default function ExpensesPage() {
     return (
       <>
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-bold text-gray-800">{title}</h3>
+          <h3 className="text-2xl font-bold text-[#2D3748]">{title}</h3>
           <div className="flex space-x-2">
             <button 
               onClick={() => setChartView('category')}
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
-                chartView === 'category' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+                chartView === 'category' ? 'bg-[#1A2B6D] text-white' : 'bg-gray-200 text-[#2D3748]'
               }`}
             >
               Category
@@ -382,7 +382,7 @@ export default function ExpensesPage() {
             <button 
               onClick={() => setChartView('monthly')}
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
-                chartView === 'monthly' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+                chartView === 'monthly' ? 'bg-[#1A2B6D] text-white' : 'bg-gray-200 text-[#2D3748]'
               }`}
             >
               Monthly
@@ -390,7 +390,7 @@ export default function ExpensesPage() {
             <button 
               onClick={() => setChartView('weekly')}
               className={`px-4 py-2 rounded-md font-medium transition-colors ${
-                chartView === 'weekly' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+                chartView === 'weekly' ? 'bg-[#1A2B6D] text-white' : 'bg-gray-200 text-[#2D3748]'
               }`}
             >
               Weekly
@@ -433,15 +433,15 @@ export default function ExpensesPage() {
                     dataKey="name" 
                     angle={-45}
                     textAnchor="end"
-                    tick={{ fill: '#1F2937', fontSize: 12 }}
+                    tick={{ fill: '#2D3748', fontSize: 12 }}
                     height={70}
                   />
-                  <YAxis tick={{ fill: '#1F2937', fontSize: 12 }} />
+                  <YAxis tick={{ fill: '#2D3748', fontSize: 12 }} />
                   <Tooltip 
                     formatter={(value) => formatCurrency(value)}
                     contentStyle={{ backgroundColor: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}
                   />
-                  <Bar dataKey="value" fill="#4F46E5" radius={[4, 4, 0, 0]}>
+                  <Bar dataKey="value" fill="#1A2B6D" radius={[4, 4, 0, 0]}>
                     {data.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
@@ -462,15 +462,15 @@ export default function ExpensesPage() {
                   dataKey="name" 
                   angle={-45}
                   textAnchor="end"
-                  tick={{ fill: '#1F2937', fontSize: 12 }}
+                  tick={{ fill: '#2D3748', fontSize: 12 }}
                   height={70}
                 />
-                <YAxis tick={{ fill: '#1F2937', fontSize: 12 }} />
+                <YAxis tick={{ fill: '#2D3748', fontSize: 12 }} />
                 <Tooltip 
                   formatter={(value) => formatCurrency(value)}
                   contentStyle={{ backgroundColor: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}
                 />
-                <Bar dataKey="value" fill="#4F46E5" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="value" fill="#1A2B6D" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -483,17 +483,17 @@ export default function ExpensesPage() {
     <DashboardLayout title="Expense Tracker">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8">
         <div>
-          <h2 className="text-3xl font-extrabold text-gray-800">Track Your Expenses</h2>
-          <p className="text-gray-700 text-lg mt-1">Manage your budget effectively</p>
+          <h2 className="text-3xl font-extrabold text-[#2D3748]">Track Your Expenses</h2>
+          <p className="text-[#4A5568] text-lg mt-1">Manage your budget effectively</p>
         </div>
         <div className="mt-4 md:mt-0 flex space-x-3">
           <button 
-            className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center text-lg font-semibold shadow-lg"
+            className="bg-[#1A2B6D] text-white px-5 py-3 rounded-lg hover:bg-[#4C63B6] transition-all flex items-center text-lg font-semibold shadow-lg transform hover:scale-105 duration-300"
             onClick={() => setShowAddExpenseModal(true)}
           >
             <Plus size={20} className="mr-2" /> Add Expense
           </button>
-          <button className="bg-green-600 text-white px-5 py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center text-lg font-semibold shadow-lg">
+          <button className="bg-[#009688] text-white px-5 py-3 rounded-lg hover:bg-[#00796B] transition-all flex items-center text-lg font-semibold shadow-lg transform hover:scale-105 duration-300">
             <Download size={20} className="mr-2" /> Export
           </button>
         </div>
@@ -501,9 +501,9 @@ export default function ExpensesPage() {
 
       {/* Add Expense Modal */}
       {showAddExpenseModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fadeIn">
           <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-2xl mx-4">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Add New Expense</h3>
+            <h3 className="text-2xl font-bold text-[#2D3748] mb-6">Add New Expense</h3>
             
             {submitError && (
               <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-700 rounded-md">
@@ -514,14 +514,14 @@ export default function ExpensesPage() {
             <form onSubmit={handleAddExpense}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2" htmlFor="title">
+                  <label className="block text-[#2D3748] font-medium mb-2" htmlFor="title">
                     Expense Title*
                   </label>
                   <input
                     type="text"
                     id="title"
                     name="title"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-[#2D3748]"
                     placeholder="e.g., Grocery Shopping"
                     value={newExpense.title}
                     onChange={handleInputChange}
@@ -530,7 +530,7 @@ export default function ExpensesPage() {
                 </div>
                 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2" htmlFor="amount">
+                  <label className="block text-[#2D3748] font-medium mb-2" htmlFor="amount">
                     Amount (₹)*
                   </label>
                   <input
@@ -539,7 +539,7 @@ export default function ExpensesPage() {
                     name="amount"
                     min="0"
                     step="0.01"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-[#2D3748]"
                     placeholder="0.00"
                     value={newExpense.amount}
                     onChange={handleInputChange}
@@ -548,13 +548,13 @@ export default function ExpensesPage() {
                 </div>
                 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2" htmlFor="category">
+                  <label className="block text-[#2D3748] font-medium mb-2" htmlFor="category">
                     Category*
                   </label>
                   <select
                     id="category"
                     name="category"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800 bg-white"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-[#2D3748] bg-white"
                     value={newExpense.category}
                     onChange={handleInputChange}
                     required
@@ -579,14 +579,14 @@ export default function ExpensesPage() {
                 </div>
                 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2" htmlFor="date">
+                  <label className="block text-[#2D3748] font-medium mb-2" htmlFor="date">
                     Date*
                   </label>
                   <input
                     type="date"
                     id="date"
                     name="date"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-[#2D3748]"
                     value={newExpense.date}
                     onChange={handleInputChange}
                     required
@@ -595,14 +595,14 @@ export default function ExpensesPage() {
               </div>
               
               <div className="mb-6">
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="notes">
+                <label className="block text-[#2D3748] font-medium mb-2" htmlFor="notes">
                   Notes (Optional)
                 </label>
                 <textarea
                   id="notes"
                   name="notes"
                   rows="3"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-800"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 text-[#2D3748]"
                   placeholder="Add any additional details here..."
                   value={newExpense.notes}
                   onChange={handleInputChange}
@@ -612,14 +612,14 @@ export default function ExpensesPage() {
               <div className="flex justify-end space-x-4">
                 <button
                   type="button"
-                  className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors"
+                  className="px-6 py-3 bg-[#F9FAFB] text-[#2D3748] rounded-lg font-medium hover:bg-[#EBF4FF] transition-all"
                   onClick={() => setShowAddExpenseModal(false)}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center"
+                  className="px-6 py-3 bg-[#1A2B6D] text-white rounded-lg font-medium hover:bg-[#4C63B6] transition-all flex items-center transform hover:scale-105"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -640,28 +640,28 @@ export default function ExpensesPage() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-white p-8 rounded-xl shadow-lg text-gray-800 border-l-4 border-l-green-500">
+        <div className="bg-white p-8 rounded-xl shadow-lg text-[#2D3748] border-l-4 border-l-[#009688] transition-all hover:shadow-xl hover:scale-105 duration-300">
           <div className="flex items-center mb-3">
-            <DollarSign size={24} className="text-green-600 mr-3" />
+            <DollarSign size={24} className="text-[#009688] mr-3" />
             <h3 className="text-xl font-bold">Total Budget</h3>
           </div>
           <p className="text-4xl font-extrabold mt-3">{formatCurrency(totalBudget)}</p>
         </div>
-        <div className="bg-white p-8 rounded-xl shadow-lg text-gray-800 border-l-4 border-l-blue-500">
+        <div className="bg-white p-8 rounded-xl shadow-lg text-[#2D3748] border-l-4 border-l-[#1A2B6D] transition-all hover:shadow-xl hover:scale-105 duration-300">
           <div className="flex items-center mb-3">
-            <TrendingUp size={24} className="text-blue-600 mr-3" />
+            <TrendingUp size={24} className="text-[#1A2B6D] mr-3" />
             <h3 className="text-xl font-bold">Expenses So Far</h3>
           </div>
           <p className="text-4xl font-extrabold mt-3">{formatCurrency(totalExpenseAmount)}</p>
-          <p className="text-base mt-2 font-semibold text-gray-700">{((totalExpenseAmount/totalBudget)*100).toFixed(1)}% of budget</p>
+          <p className="text-base mt-2 font-semibold text-[#4A5568]">{((totalExpenseAmount/totalBudget)*100).toFixed(1)}% of budget</p>
         </div>
-        <div className={`bg-white p-8 rounded-xl shadow-lg text-gray-800 border-l-4 ${remainingBudget >= 0 ? 'border-l-purple-500' : 'border-l-red-500'}`}>
+        <div className={`bg-white p-8 rounded-xl shadow-lg text-[#2D3748] border-l-4 ${remainingBudget >= 0 ? 'border-l-[#9F7AEA]' : 'border-l-[#FF5722]'} transition-all hover:shadow-xl hover:scale-105 duration-300`}>
           <div className="flex items-center mb-3">
-            <Calculator size={24} className={`${remainingBudget >= 0 ? 'text-purple-600' : 'text-red-600'} mr-3`} />
+            <Calculator size={24} className={`${remainingBudget >= 0 ? 'text-[#9F7AEA]' : 'text-[#FF5722]'} mr-3`} />
             <h3 className="text-xl font-bold">{remainingBudget >= 0 ? 'Remaining' : 'Over Budget'}</h3>
           </div>
           <p className="text-4xl font-extrabold mt-3">{formatCurrency(Math.abs(remainingBudget))}</p>
-          <p className="text-base mt-2 font-semibold text-gray-700">{remainingBudget >= 0 ? 'Available to spend' : 'Budget exceeded'}</p>
+          <p className="text-base mt-2 font-semibold text-[#4A5568]">{remainingBudget >= 0 ? 'Available to spend' : 'Budget exceeded'}</p>
         </div>
       </div>
 
@@ -669,7 +669,7 @@ export default function ExpensesPage() {
         <div className="md:col-span-8 bg-white rounded-lg shadow-lg p-8 border border-gray-200">
           {loading ? (
             <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[#1A2B6D]"></div>
             </div>
           ) : error ? (
             <div className="bg-red-50 p-6 rounded-lg text-red-800 text-center text-lg font-medium border-2 border-red-200">
@@ -681,31 +681,31 @@ export default function ExpensesPage() {
         </div>
 
         <div className="md:col-span-4 bg-white rounded-lg shadow-lg p-8 border border-gray-200">
-          <h3 className="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-            <BarChart2 size={24} className="mr-3 text-blue-600" />
+          <h3 className="text-2xl font-bold mb-6 text-[#2D3748] flex items-center">
+            <BarChart2 size={24} className="mr-3 text-[#1A2B6D]" />
             Expense Insights
           </h3>
 
           <div className="space-y-8">
-            <div className="p-6 bg-blue-50 rounded-lg border border-blue-100">
-              <h4 className="font-semibold text-lg mb-2 text-gray-800">Top Expense Category</h4>
+            <div className="p-6 bg-[#E6FFFA] rounded-lg border border-[#B2F5EA]">
+              <h4 className="font-semibold text-lg mb-2 text-[#2D3748]">Top Expense Category</h4>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div 
                     className="w-4 h-4 rounded-full mr-3" 
                     style={{ backgroundColor: COLORS[0] }}
                   ></div>
-                  <span className="text-xl font-bold text-gray-800">{topCategory.name}</span>
+                  <span className="text-xl font-bold text-[#2D3748]">{topCategory.name}</span>
                 </div>
-                <span className="text-xl font-bold text-gray-800">{formatCurrency(topCategory.value)}</span>
+                <span className="text-xl font-bold text-[#2D3748]">{formatCurrency(topCategory.value)}</span>
               </div>
-              <p className="text-base mt-1 text-gray-600">
+              <p className="text-base mt-1 text-[#4A5568]">
                 {((topCategory.value / totalExpenseAmount) * 100).toFixed(1)}% of total expenses
               </p>
             </div>
 
             <div>
-              <h4 className="font-semibold text-lg mb-4 text-gray-800">Recent Daily Spending</h4>
+              <h4 className="font-semibold text-lg mb-4 text-[#2D3748]">Recent Daily Spending</h4>
               <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
@@ -715,37 +715,37 @@ export default function ExpensesPage() {
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                     <XAxis 
                       dataKey="name" 
-                      tick={{ fill: '#1F2937', fontSize: 12 }}
+                      tick={{ fill: '#2D3748', fontSize: 12 }}
                     />
-                    <YAxis tick={{ fill: '#1F2937', fontSize: 12 }} />
+                    <YAxis tick={{ fill: '#2D3748', fontSize: 12 }} />
                     <Tooltip 
                       formatter={(value) => formatCurrency(value)}
                       labelFormatter={(label, items) => items[0]?.payload?.fullDate}
                       contentStyle={{ backgroundColor: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}
                     />
-                    <Bar dataKey="value" fill="#4F46E5" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="value" fill="#1A2B6D" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
 
-            <div className="flex items-center justify-between p-5 bg-purple-50 rounded-lg border border-purple-100">
+            <div className="flex items-center justify-between p-5 bg-[#E9D8FD] rounded-lg border border-[#D6BCFA]">
               <div>
-                <p className="text-base font-medium text-gray-600">Average Daily Expense</p>
-                <p className="text-2xl font-bold text-gray-800">
+                <p className="text-base font-medium text-[#4A5568]">Average Daily Expense</p>
+                <p className="text-2xl font-bold text-[#2D3748]">
                   {formatCurrency(totalExpenseAmount / (expenseData.length ? expenseData.length : 1))}
                 </p>
               </div>
-              <Calculator size={28} className="text-purple-600" />
+              <Calculator size={28} className="text-[#9F7AEA]" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200 mb-10">
+      <div className="bg-white rounded-lg shadow-lg p-8 border border-[#E2E8F0] mb-10 transition-all hover:shadow-xl">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-          <h3 className="text-2xl font-bold text-gray-800 flex items-center">
-            <Calendar size={24} className="mr-3 text-blue-600" />
+          <h3 className="text-2xl font-bold text-[#2D3748] flex items-center">
+            <Calendar size={24} className="mr-3 text-[#1A2B6D]" />
             Recent Expenses
           </h3>
           <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4 mt-4 md:mt-0 w-full md:w-auto">
@@ -753,13 +753,13 @@ export default function ExpensesPage() {
               <input
                 type="text"
                 placeholder="Search expenses..."
-                className="pl-4 pr-10 py-3 border border-gray-300 rounded-lg w-full md:w-64 text-gray-800 text-base"
+                className="pl-4 pr-10 py-3 border border-gray-300 rounded-lg w-full md:w-64 text-[#2D3748] text-base"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <select 
-              className="pl-4 pr-10 py-3 border border-gray-300 rounded-lg bg-white text-gray-800 text-base font-medium"
+              className="pl-4 pr-10 py-3 border border-gray-300 rounded-lg bg-white text-[#2D3748] text-base font-medium"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             >
@@ -773,7 +773,7 @@ export default function ExpensesPage() {
 
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[#1A2B6D]"></div>
           </div>
         ) : error ? (
           <div className="bg-red-50 p-6 rounded-lg text-red-800 text-center text-lg font-medium border-2 border-red-200">
@@ -786,25 +786,25 @@ export default function ExpensesPage() {
                 <thead className="bg-gray-100">
                   <tr>
                     <th 
-                      className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200"
+                      className="px-6 py-4 text-left text-sm font-bold text-[#2D3748] uppercase tracking-wider cursor-pointer hover:bg-gray-200"
                       onClick={() => handleSortChange('date')}
                     >
                       Date {sortBy === 'date' && (sortDirection === 'asc' ? '↑' : '↓')}
                     </th>
                     <th 
-                      className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200"
+                      className="px-6 py-4 text-left text-sm font-bold text-[#2D3748] uppercase tracking-wider cursor-pointer hover:bg-gray-200"
                       onClick={() => handleSortChange('category')}
                     >
                       Category {sortBy === 'category' && (sortDirection === 'asc' ? '↑' : '↓')}
                     </th>
                     <th 
-                      className="px-6 py-4 text-left text-sm font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200"
+                      className="px-6 py-4 text-left text-sm font-bold text-[#2D3748] uppercase tracking-wider cursor-pointer hover:bg-gray-200"
                       onClick={() => handleSortChange('title')}
                     >
                       Description {sortBy === 'title' && (sortDirection === 'asc' ? '↑' : '↓')}
                     </th>
                     <th 
-                      className="px-6 py-4 text-right text-sm font-bold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-200"
+                      className="px-6 py-4 text-right text-sm font-bold text-[#2D3748] uppercase tracking-wider cursor-pointer hover:bg-gray-200"
                       onClick={() => handleSortChange('amount')}
                     >
                       Amount {sortBy === 'amount' && (sortDirection === 'asc' ? '↑' : '↓')}
@@ -815,19 +815,19 @@ export default function ExpensesPage() {
                   {currentItems.length > 0 ? (
                     currentItems.map((expense) => (
                       <tr key={expense.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-5 whitespace-nowrap text-base text-gray-800">{formatDate(expense.date)}</td>
+                        <td className="px-6 py-5 whitespace-nowrap text-base text-[#2D3748]">{formatDate(expense.date)}</td>
                         <td className="px-6 py-5 whitespace-nowrap">
-                          <span className="px-3 py-1.5 text-sm font-semibold rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+                          <span className="px-3 py-1.5 text-sm font-semibold rounded-full bg-[#E6FFFA] text-[#009688] border border-[#B2F5EA]">
                             {expense.category}
                           </span>
                         </td>
                         <td className="px-6 py-5">
-                          <div className="font-semibold text-base text-gray-800">{expense.title}</div>
+                          <div className="font-semibold text-base text-[#2D3748]">{expense.title}</div>
                           {expense.notes && (
-                            <div className="text-sm text-gray-600 mt-1">{expense.notes}</div>
+                            <div className="text-sm text-[#4A5568] mt-1">{expense.notes}</div>
                           )}
                         </td>
-                        <td className="px-6 py-5 whitespace-nowrap text-right font-bold text-lg text-gray-800">
+                        <td className="px-6 py-5 whitespace-nowrap text-right font-bold text-lg text-[#2D3748]">
                           {formatCurrency(expense.amount)}
                         </td>
                       </tr>
@@ -845,14 +845,14 @@ export default function ExpensesPage() {
 
             {totalPages > 1 && (
               <div className="mt-8 flex justify-between items-center">
-                <div className="text-base text-gray-600 font-medium">
+                <div className="text-base text-[#4A5568] font-medium">
                   Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredExpenses.length)} of {filteredExpenses.length} expenses
                 </div>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 border rounded font-medium bg-white disabled:opacity-50 text-gray-800 text-base"
+                    className="px-4 py-2 border rounded font-medium bg-white disabled:opacity-50 text-[#2D3748] text-base"
                   >
                     Previous
                   </button>
@@ -861,20 +861,20 @@ export default function ExpensesPage() {
                       key={number}
                       onClick={() => handlePageChange(number + 1)}
                       className={`px-4 py-2 border rounded font-bold text-base ${
-                        currentPage === number + 1 ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-800'
+                        currentPage === number + 1 ? 'bg-[#1A2B6D] text-white border-[#1A2B6D]' : 'bg-white text-[#2D3748]'
                       }`}
                     >
                       {number + 1}
                     </button>
                   ))}
                   {totalPages > 5 && currentPage < totalPages - 2 && (
-                    <span className="px-4 py-2 text-gray-800">...</span>
+                    <span className="px-4 py-2 text-[#2D3748]">...</span>
                   )}
                   {totalPages > 5 && currentPage < totalPages && (
                     <button
                       onClick={() => handlePageChange(totalPages)}
                       className={`px-4 py-2 border rounded font-bold text-base ${
-                        currentPage === totalPages ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-800'
+                        currentPage === totalPages ? 'bg-[#1A2B6D] text-white border-[#1A2B6D]' : 'bg-white text-[#2D3748]'
                       }`}
                     >
                       {totalPages}
@@ -883,7 +883,7 @@ export default function ExpensesPage() {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-4 py-2 border rounded font-medium bg-white disabled:opacity-50 text-gray-800 text-base"
+                    className="px-4 py-2 border rounded font-medium bg-white disabled:opacity-50 text-[#2D3748] text-base"
                   >
                     Next
                   </button>
@@ -895,9 +895,9 @@ export default function ExpensesPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
-          <h3 className="text-2xl font-bold mb-6 flex items-center text-gray-800">
-            <Calculator size={24} className="mr-3 text-blue-600" />
+        <div className="bg-white rounded-lg shadow-lg p-8 border border-[#E2E8F0]">
+          <h3 className="text-2xl font-bold mb-6 flex items-center text-[#2D3748]">
+            <Calculator size={24} className="mr-3 text-[#1A2B6D]" />
             Monthly Analysis
           </h3>
           <div className="space-y-8">
@@ -912,32 +912,32 @@ export default function ExpensesPage() {
                     dataKey="name" 
                     angle={-45}
                     textAnchor="end"
-                    tick={{ fill: '#1F2937', fontSize: 12 }}
+                    tick={{ fill: '#2D3748', fontSize: 12 }}
                     height={60}
                   />
-                  <YAxis tick={{ fill: '#1F2937', fontSize: 12 }} />
+                  <YAxis tick={{ fill: '#2D3748', fontSize: 12 }} />
                   <Tooltip 
                     formatter={(value) => formatCurrency(value)}
                     contentStyle={{ backgroundColor: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}
                   />
-                  <Bar dataKey="value" fill="#8B5CF6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="value" fill="#9F7AEA" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-5 bg-blue-50 rounded-lg border-2 border-blue-100">
-                <h4 className="font-bold text-lg mb-2 text-gray-800">Top Spending Month</h4>
-                <p className="text-xl font-bold text-gray-800">{monthlyData.length > 0 ? monthlyData.reduce((max, month) => month.value > max.value ? month : max, { name: 'N/A', value: 0 }).name : 'N/A'}</p>
-                <p className="font-extrabold text-xl text-blue-700 mt-2">
+              <div className="p-5 bg-[#E6FFFA] rounded-lg border-2 border-[#B2F5EA]">
+                <h4 className="font-bold text-lg mb-2 text-[#2D3748]">Top Spending Month</h4>
+                <p className="text-xl font-bold text-[#2D3748]">{monthlyData.length > 0 ? monthlyData.reduce((max, month) => month.value > max.value ? month : max, { name: 'N/A', value: 0 }).name : 'N/A'}</p>
+                <p className="font-extrabold text-xl text-[#009688] mt-2">
                   {monthlyData.length > 0 ? formatCurrency(monthlyData.reduce((max, month) => month.value > max.value ? month : max, { value: 0 }).value) : '₹0'}
                 </p>
               </div>
               
-              <div className="p-5 bg-purple-50 rounded-lg border-2 border-purple-100">
-                <h4 className="font-bold text-lg mb-2 text-gray-800">Monthly Average</h4>
-                <p className="text-base font-medium text-gray-700">Average expense per month</p>
-                <p className="font-extrabold text-xl text-purple-700 mt-2">
+              <div className="p-5 bg-[#E9D8FD] rounded-lg border-2 border-[#D6BCFA]">
+                <h4 className="font-bold text-lg mb-2 text-[#2D3748]">Monthly Average</h4>
+                <p className="text-base font-medium text-[#4A5568]">Average expense per month</p>
+                <p className="font-extrabold text-xl text-[#9F7AEA] mt-2">
                   {monthlyData.length > 0 ? formatCurrency(monthlyData.reduce((sum, month) => sum + month.value, 0) / monthlyData.length) : '₹0'}
                 </p>
               </div>
@@ -945,9 +945,9 @@ export default function ExpensesPage() {
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
-          <h3 className="text-2xl font-bold mb-6 flex items-center text-gray-800">
-            <Send size={24} className="mr-3 text-blue-600" />
+        <div className="bg-white rounded-lg shadow-lg p-8 border border-[#E2E8F0]">
+          <h3 className="text-2xl font-bold mb-6 flex items-center text-[#2D3748]">
+            <Send size={24} className="mr-3 text-[#1A2B6D]" />
             Shared Expenses
           </h3>
           <div className="space-y-5">
@@ -957,36 +957,36 @@ export default function ExpensesPage() {
               { name: 'Amit', amount: '₹5,100', status: 'Paid', date: '2 Apr' },
               { name: 'Sneha', amount: '₹2,800', status: 'Pending', date: '3 Apr' },
             ].map((person, index) => (
-              <div key={index} className="flex justify-between items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+              <div key={index} className="flex justify-between items-center p-4 border border-[#E2E8F0] rounded-lg hover:bg-gray-50">
                 <div className="flex items-center">
-                  <div className="bg-blue-100 text-blue-800 rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg mr-4 border border-blue-200">
+                  <div className="bg-[#E6FFFA] text-[#009688] rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg mr-4 border border-[#B2F5EA]">
                     {person.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="font-bold text-lg text-gray-800">{person.name}</p>
-                    <p className="text-base text-gray-600">Due {person.date}</p>
+                    <p className="font-bold text-lg text-[#2D3748]">{person.name}</p>
+                    <p className="text-base text-[#4A5568]">Due {person.date}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-lg text-gray-800">{person.amount}</p>
+                  <p className="font-bold text-lg text-[#2D3748]">{person.amount}</p>
                   <span className={`px-3 py-1.5 rounded-full text-sm font-bold ${
-                    person.status === 'Paid' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-yellow-100 text-yellow-800 border border-yellow-300'
+                    person.status === 'Paid' ? 'bg-[#C6F6D5] text-[#38A169] border border-[#9AE6B4]' : 'bg-[#FEFCBF] text-[#D69E2E] border border-[#FAF089]'
                   }`}>
                     {person.status}
                   </span>
                 </div>
               </div>
             ))}
-            <button className="mt-4 bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition-colors w-full flex items-center justify-center text-lg font-bold shadow-md">
+            <button className="mt-4 bg-[#1A2B6D] text-white px-6 py-3 rounded hover:bg-[#4C63B6] transition-all w-full flex items-center justify-center text-lg font-bold shadow-md">
               <Send size={18} className="mr-2" /> Send Reminders
             </button>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200 mb-10">
-        <h3 className="text-2xl font-bold mb-6 flex items-center text-gray-800">
-          <BarChart2 size={24} className="mr-3 text-blue-600" />
+      <div className="bg-white rounded-lg shadow-lg p-8 border border-[#E2E8F0] mb-10">
+        <h3 className="text-2xl font-bold mb-6 flex items-center text-[#2D3748]">
+          <BarChart2 size={24} className="mr-3 text-[#1A2B6D]" />
           Category Comparison
         </h3>
         <div className="h-80">
@@ -1001,10 +1001,10 @@ export default function ExpensesPage() {
                 dataKey="name" 
                 angle={-45}
                 textAnchor="end"
-                tick={{ fill: '#1F2937', fontSize: 12 }}
+                tick={{ fill: '#2D3748', fontSize: 12 }}
                 height={70}
               />
-              <YAxis tick={{ fill: '#1F2937', fontSize: 12 }} />
+              <YAxis tick={{ fill: '#2D3748', fontSize: 12 }} />
               <Tooltip 
                 formatter={(value) => formatCurrency(value)}
                 contentStyle={{ backgroundColor: '#F9FAFB', borderRadius: '8px', border: '1px solid #E5E7EB' }}
@@ -1019,13 +1019,13 @@ export default function ExpensesPage() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
           {categoryData.slice(0, 4).map((category, index) => (
-            <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
+            <div key={index} className="p-4 bg-[#F7FAFC] rounded-lg border border-[#E2E8F0] hover:shadow-md transition-shadow">
               <div className="flex items-center mb-2">
                 {getCategoryIcon(category.name)}
-                <h4 className="font-bold text-gray-800">{category.name}</h4>
+                <h4 className="font-bold text-[#2D3748]">{category.name}</h4>
               </div>
-              <p className="text-xl font-extrabold text-gray-800">{formatCurrency(category.value)}</p>
-              <p className="text-sm font-medium text-gray-600 mt-1">{category.percentage}% of total</p>
+              <p className="text-xl font-extrabold text-[#2D3748]">{formatCurrency(category.value)}</p>
+              <p className="text-sm font-medium text-[#4A5568] mt-1">{category.percentage}% of total</p>
             </div>
           ))}
         </div>
