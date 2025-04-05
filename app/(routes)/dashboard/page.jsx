@@ -45,7 +45,7 @@ const DashboardSidebar = () => {
                       ? 'bg-white text-blue-900 font-semibold shadow-lg' 
                       : 'hover:bg-blue-700 text-white'
                   }`}
-                >
+                > 
                   <span className="mr-3 text-lg">{item.icon}</span>
                   <span className="font-medium">{item.displayName}</span>
                 </div>
