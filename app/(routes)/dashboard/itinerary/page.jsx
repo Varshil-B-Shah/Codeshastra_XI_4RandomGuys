@@ -328,7 +328,7 @@ export default function ItineraryPage() {
     };
     
     try {
-      const response = await fetch('https://4379-14-139-125-231.ngrok-free.app/generate-itinerary', {
+      const response = await fetch('https://eb80-2401-4900-5091-57d6-1ca2-ef04-2f72-77dd.ngrok-free.app/generate-itinerary', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
