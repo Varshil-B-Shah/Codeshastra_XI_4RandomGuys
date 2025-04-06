@@ -6,6 +6,8 @@ import { useUser } from '@clerk/nextjs';
 import { cn } from '@/lib/utils';
 import { Search, Users, MessageSquare } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { YouTubeResults } from '@/components/youtube-results';
+import { WeatherDisplay } from '@/components/weather-display';
 
 const GROUPS = [
   { id: 'group-1', name: 'General Discussion', description: 'Chat about anything', icon: '👋', color: 'from-blue-500 to-cyan-500' },
@@ -17,6 +19,7 @@ export default function GroupChatPage() {
   const { isSignedIn, user, isLoaded } = useUser();
   const [selectedGroup, setSelectedGroup] = useState(GROUPS[0]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [aiResponse, setAiResponse] = useState(null);
   
   if (!isLoaded || !isSignedIn) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
@@ -26,9 +29,44 @@ export default function GroupChatPage() {
     group.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleAiMention = async (text) => {
+    try {
+      // Check if text contains @ai mention
+      if (text.includes('@ai')) {
+        // Show browser warning about the API call
+        console.warn('Making API call to external ngrok service');
+        
+        const response = await fetch('https://a8d1-103-207-59-158.ngrok-free.app/askai', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ text }),
+        });
+        
+        const data = await response.json();
+        setAiResponse(data);
+      }
+    } catch (error) {
+      console.error('Error calling AI service:', error);
+    }
+  };
+
+  const renderAiResponse = () => {
+    if (!aiResponse) return null;
+    
+    if (aiResponse.tool_data?.tool_name === 'yt') {
+      return <YouTubeResults response={aiResponse.tool_data.response} />;
+    } else if (aiResponse.tool_data?.tool_name === 'weather') {
+      return <WeatherDisplay data={aiResponse.tool_data.response} />;
+    }
+    
+    return null;
+  };
+
   return (
     <DashboardLayout title="Group Chats">
-      <div className="flex h-[calc(100vh-120px)] bg-slate-50 dark:bg-gray-900 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800 shadow-md">
+      <div className="flex h-[calc(100vh-120px)] bg-slate-50 dark:bg-gray-900 rounded-lg overflow-x-hidden border border-slate-200 dark:border-slate-800 shadow-md">
         {/* Sidebar */}
         <div className="w-80 border-r border-slate-200 dark:border-slate-800 flex flex-col">
           {/* Search */}
@@ -95,10 +133,12 @@ export default function GroupChatPage() {
         
         {/* Chat Area */}
         <div className="flex-1 flex flex-col">
+          {aiResponse && renderAiResponse()}
           {selectedGroup ? (
             <RealtimeChat 
               roomName={selectedGroup.id} 
-              username={user.emailAddresses[0].emailAddress} 
+              username={user.emailAddresses[0].emailAddress}
+              onMessageSend={handleAiMention}
             />
           ) : (
             <div className="flex-1 flex items-center justify-center">

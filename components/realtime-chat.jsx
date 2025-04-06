@@ -7,6 +7,8 @@ import { Input } from '@/components/ui/input'
 import { Send, Loader2, User, UserCircle } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { format } from 'date-fns';
+import { YouTubeResults } from './youtube-results';
+import { WeatherDisplay } from './weather-display';
 
 // Enhanced message bubble component
 const ChatMessageBubble = ({ message, isOwnMessage, showHeader }) => {
@@ -30,6 +32,31 @@ const ChatMessageBubble = ({ message, isOwnMessage, showHeader }) => {
     return colors[Math.abs(hash) % colors.length];
   }
   
+  const renderMessageContent = (message) => {
+    if (message.componentData) {
+      if (message.componentData.type === 'youtube') {
+        return (
+          <div className="mt-2">
+            <div>{message.content}</div>
+            <div className="mt-2">
+              <YouTubeResults response={message.componentData.data} />
+            </div>
+          </div>
+        );
+      } else if (message.componentData.type === 'weather') {
+        return (
+          <div className="mt-2">
+            <div>{message.content}</div>
+            <div className="mt-2">
+              <WeatherDisplay data={message.componentData.data} />
+            </div>
+          </div>
+        );
+      }
+    }
+    return message.content;
+  };
+
   return (
     <div className={cn(
       "flex gap-2 max-w-[80%]",
@@ -66,7 +93,7 @@ const ChatMessageBubble = ({ message, isOwnMessage, showHeader }) => {
             ? "bg-primary text-primary-foreground rounded-tr-none" 
             : "bg-muted rounded-tl-none"
         )}>
-          {message.content}
+          {renderMessageContent(message)}
         </div>
         
         {/* Time only (when not showing header) */}
@@ -102,19 +129,21 @@ const DateSeparator = ({ date }) => {
  * @param username - The username of the user
  * @param onMessage - The callback function to handle the messages.
  * @param messages - The messages to display in the chat.
+ * @param onMessageSend - The callback function to handle message sending.
  * @returns The chat component
  */
 export const RealtimeChat = ({
   roomName,
   username,
   onMessage,
-  messages: initialMessages = []
+  messages: initialMessages = [],
+  onMessageSend
 }) => {
   const { containerRef, scrollToBottom } = useChatScroll()
 
   const {
     messages: realtimeMessages,
-    sendMessage,
+    sendMessage: sendRealtimeMessage,
     isConnected,
   } = useRealtimeChat({
     roomName,
@@ -150,9 +179,23 @@ export const RealtimeChat = ({
     e.preventDefault()
     if (!newMessage.trim() || !isConnected) return
     
-    sendMessage(newMessage)
+    // Call the AI mention handler callback if provided
+    if (onMessageSend) {
+      onMessageSend(newMessage, (aiMessage, componentData) => {
+        const aiResponseMessage = {
+          id: Date.now().toString(),
+          content: aiMessage,
+          user: { name: 'AI Assistant' },
+          createdAt: new Date().toISOString(),
+          componentData: componentData
+        };
+        realtimeMessages.push(aiResponseMessage);
+      });
+    }
+
+    sendRealtimeMessage(newMessage)
     setNewMessage('')
-  }, [newMessage, isConnected, sendMessage])
+  }, [newMessage, isConnected, sendRealtimeMessage, onMessageSend, realtimeMessages])
 
   // Group messages by date
   const messagesByDate = useMemo(() => {
