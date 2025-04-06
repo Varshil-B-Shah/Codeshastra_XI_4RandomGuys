@@ -246,15 +246,15 @@ export default function TravelScrapBook() {
         front: (
           <div className="h-full w-full flex items-center justify-center p-8 bg-[#f4e4bc]">
             <div className="text-center p-8 rounded-lg">
-              <p className="text-3xl text-[#5c3518] mb-6">Alex Morgan</p>
+              <p className="text-3xl text-[#5c3518] mb-6">Sachin</p>
               <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-[#8b4513]">
                 <img
-                  src="/api/placeholder/128/128"
+                  src="/pfp.jpg"
                   alt="Journal Owner"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <p className="mt-6 text-[#5c3518] italic">2023-2024 Adventures</p>
+              <p className="mt-6 text-[#5c3518] italic">My Adventures</p>
             </div>
           </div>
         ),
@@ -546,8 +546,8 @@ export default function TravelScrapBook() {
 
               {/* Click to open prompt if book is closed */}
               {!isBookOpen && (
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="bg-white/80 px-6 py-3 rounded-full text-blue-900 font-medium animate-pulse shadow-lg">
+                <div className="absolute inset-0 flex items-center justify-center z-[100]">
+                  <div className="bg-white/80 px-6 py-3 rounded-full text-[#8b4513] font-medium animate-pulse shadow-lg">
                     Click to open journal
                   </div>
                 </div>
