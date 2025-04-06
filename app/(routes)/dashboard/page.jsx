@@ -70,10 +70,12 @@ const DashboardContent = () => {
               <p className="text-blue-100 text-lg mb-6">
                 Ready to discover more of India's wonders?
               </p>
+              <Link href={"/dashboard/itinerary"}>
               <button className="btn-accent">
                 <FaPlus className="mr-2 inline-block" /> Plan your next
                 adventure
               </button>
+              </Link>
             </div>
             <div className="absolute right-10 top-1/2 transform -translate-y-1/2 hidden lg:block">
               <img

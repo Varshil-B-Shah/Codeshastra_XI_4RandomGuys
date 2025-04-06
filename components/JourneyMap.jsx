@@ -10,139 +10,28 @@ const JourneyMap = () => {
   const mapInstance = useRef(null);
   const [timelinePanelVisible, setTimelinePanelVisible] = useState(true);
 
-  // Hardcoded travel plan data
-  const segments = [
-    {
-      "from": [
-        18.5167,
-        73.8563
-      ],
-      "to": [
-        17.3850,
-        78.4867
-      ],
-      "mode": "plane",
-      "description": "Flight from Pune to Hyderabad with IndiGo, departing April 14, 2025, at 01:50 and arriving at 03:10.",
-      "title": "Pune Airport -> Hyderabad Airport"
-    },
-    {
-      "from": [
-        17.3850,
-        78.4867
-      ],
-      "to": [
-        17.2410,
-        78.3848
-      ],
-      "mode": "car",
-      "description": "Car ride from Rajiv Gandhi International Airport to Novotel Hyderabad Airport.",
-      "title": "Airport -> Novotel Hyderabad Airport"
-    },
-    {
-      "from": [
-        17.2909,
-        78.4761
-      ],
-      "to": [
-        17.3616,
-        78.4747
-      ],
-      "mode": "car",
-      "description": "Car ride from Novotel Hyderabad Airport to Charminar.",
-      "title": "Novotel Hyderabad Airport -> Charminar"
-    },
-    {
-      "from": [
-        17.3616,
-        78.4747
-      ],
-      "to": [
-        17.3825,
-        78.4092
-      ],
-      "mode": "car",
-      "description": "Car ride from Charminar to Golconda Fort.",
-      "title": "Charminar -> Golconda Fort"
-    },
-    {
-      "from": [
-        17.3825,
-        78.4092
-      ],
-      "to": [
-        17.2410,
-        78.3848
-      ],
-      "mode": "car",
-      "description": "Car ride from Golconda Fort back to Novotel Hyderabad Airport.",
-      "title": "Golconda Fort -> Novotel Hyderabad Airport"
-    },
-    {
-      "from": [
-        17.2410,
-        78.3848
-      ],
-      "to": [
-        17.3959,
-        78.4760
-      ],
-      "mode": "car",
-      "description": "Car ride from Novotel Hyderabad Airport to Salar Jung Museum.",
-      "title": "Novotel Hyderabad Airport -> Salar Jung Museum"
-    },
-    {
-      "from": [
-        17.3959,
-        78.4760
-      ],
-      "to": [
-        17.4053,
-        78.3938
-      ],
-      "mode": "car",
-      "description": "Car ride from Salar Jung Museum to Qutb Shahi Tombs.",
-      "title": "Salar Jung Museum -> Qutb Shahi Tombs"
-    },
-    {
-      "from": [
-        17.4053,
-        78.3938
-      ],
-      "to": [
-        17.2410,
-        78.3848
-      ],
-      "mode": "car",
-      "description": "Car ride from Qutb Shahi Tombs back to Novotel Hyderabad Airport.",
-      "title": "Qutb Shahi Tombs -> Novotel Hyderabad Airport"
-    },
-    {
-      "from": [
-        17.2410,
-        78.3848
-      ],
-      "to": [
-        17.3850,
-        78.4867
-      ],
-      "mode": "car",
-      "description": "Car ride from Novotel Hyderabad Airport to Rajiv Gandhi International Airport for departure.",
-      "title": "Novotel Hyderabad Airport -> Hyderabad Airport"
-    },
-    {
-      "from": [
-        17.3850,
-        78.4867
-      ],
-      "to": [
-        18.5167,
-        73.8563
-      ],
-      "mode": "plane",
-      "description": "Flight from Hyderabad to Pune .",
-      "title": "Hyderabad Airport -> Pune Airport"
+  // Parse the travel plan from JSON
+  const parseTravelPlan = (jsonString) => {
+    try {
+      // Extract JSON string from the markdown-style backticks
+      const jsonMatch = jsonString.match(/```json\n([\s\S]*)\n```/);
+      if (jsonMatch && jsonMatch[1]) {
+        return JSON.parse(jsonMatch[1]);
+      }
+      return [];
+    } catch (error) {
+      console.error("Error parsing travel plan:", error);
+      return [];
     }
-  ];
+  };
+
+  // Travel plan data - will be filled from JSON
+  const travelPlanJson = {
+    "travel_plan": "```json\n[\n  {\n    \"from\": [\n      18.56667,\n      73.76667\n    ],\n    \"to\": [\n      17.380,\n      78.4867\n    ],\n    \"mode\": \"plane\",\n    \"description\": \"Flight from Pune Airport to Hyderabad Airport on IndiGo, departing April 14, 2025, at 01:50 and arriving at 03:10. Duration: 80 minutes.\",\n    \"title\": \"Pune Airport -> Hyderabad Airport\"\n  },\n  {\n    \"from\": [\n      17.385,\n      78.4867\n    ],\n    \"to\": [\n      17.2347,\n      78.3847\n    ],\n    \"mode\": \"car\",\n    \"description\": \"Taxi/Car from Rajiv Gandhi International Airport to Novotel Hyderabad Airport. Approximately 30 minutes.\",\n    \"title\": \"Hyderabad Airport -> Novotel Hyderabad Airport\"\n  },\n  {\n    \"from\": [\n      17.3871,\n      78.4755\n    ],\n    \"to\": [\n      17.3616,\n      78.4747\n    ],\n    \"mode\": \"car\",\n    \"description\": \"Taxi/Car from Charminar to Golconda Fort. Approximately 30-45 minutes depending on traffic.\",\n    \"title\": \"Charminar -> Golconda Fort\"\n  },\n  {\n    \"from\": [\n      17.385,\n      78.4967\n    ],\n    \"to\": [\n      18.56667,\n      73.76667\n    ],\n    \"mode\": \"plane\",\n    \"description\": \"Flight from Rajiv Gandhi International Airport to Pune Airport on April 16, 2025. Departure at 05:00 PM.\",\n    \"title\": \"Hyderabad Airport -> Pune Airport\"\n  }\n]\n```"
+  };
+  
+  // Parse the travel plan data
+  const segments = parseTravelPlan(travelPlanJson.travel_plan);
 
   useEffect(() => {
     // Dynamic imports for Leaflet only (removed leaflet-routing-machine)
@@ -470,7 +359,7 @@ const JourneyMap = () => {
         mapInstance.current = null;
       }
     };
-  }, []);
+  }, [segments]);
 
   const toggleTimelinePanel = () => {
     setTimelinePanelVisible(!timelinePanelVisible);

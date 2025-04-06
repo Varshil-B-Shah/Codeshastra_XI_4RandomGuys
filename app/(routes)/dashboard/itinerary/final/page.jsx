@@ -17,6 +17,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  TextField,
+  Alert,
+  Snackbar,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
@@ -29,9 +32,12 @@ import {
   Hotel,
   Restaurant,
   EventNote,
+  Edit,
+  Send,
 } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+
 
 // Import map dynamically to avoid SSR issues with correct path
 const JourneyMap = dynamic(() => import('../../../../../components/JourneyMap'), {
@@ -75,6 +81,13 @@ export default function FinalItineraryPage() {
   const [loading, setLoading] = useState(true);
   const [mapLoading, setMapLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [changeRequest, setChangeRequest] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
 
   useEffect(() => {
     // Load the selected itinerary from localStorage
@@ -93,7 +106,7 @@ export default function FinalItineraryPage() {
     const fetchMapData = async () => {
       setMapLoading(true);
       try {
-        const response = await fetch('https://eb80-2401-4900-5091-57d6-1ca2-ef04-2f72-77dd.ngrok-free.app/map');
+        const response = await fetch(`https://8518-14-139-125-231.ngrok-free.app/map`);
         const data = await response.json();
         
         // Parse the travel_plan from the string format
@@ -128,6 +141,73 @@ export default function FinalItineraryPage() {
     formatted = formatted.replace(/\n/g, '<br />');
     formatted = formatted.replace(/\*\s+([^\n]*)/g, '• $1<br />');
     return formatted;
+  };
+
+  const handleSubmitChangeRequest = async () => {
+    if (!changeRequest.trim()) {
+      setNotification({
+        open: true,
+        message: 'Please enter a change request.',
+        severity: 'error',
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      // Call the API endpoint with the change request
+
+      const response = await fetch(`https://8518-14-139-125-231.ngrok-free.app/change-itinerary`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          changes: changeRequest,
+          current_itinerary: itineraryData
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // If the API returns updated itinerary data, use it
+      if (data && data.updated_itinerary) {
+        setItineraryData(data.updated_itinerary);
+        localStorage.setItem('finalItinerary', JSON.stringify(data.updated_itinerary));
+      } else {
+        // Otherwise just store the current data
+        localStorage.setItem('finalItinerary', JSON.stringify(itineraryData));
+      }
+      
+      setNotification({
+        open: true,
+        message: 'Change request submitted successfully!',
+        severity: 'success',
+      });
+      setChangeRequest('');
+      
+      // Short timeout to allow the notification to be seen before redirecting
+      setTimeout(() => {
+        router.push('/dashboard/itinerary/show');
+      }, 1500);
+    } catch (error) {
+      console.error('Error submitting change request:', error);
+      setNotification({
+        open: true,
+        message: 'Failed to submit change request. Please try again.',
+        severity: 'error',
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification((prev) => ({ ...prev, open: false }));
   };
 
   if (loading) {
@@ -224,6 +304,31 @@ export default function FinalItineraryPage() {
               Download Itinerary
             </Button>
           </Box>
+
+          <Box sx={{ mt: 4 }}>
+            <Typography variant="h6" fontWeight={600} gutterBottom>
+              Request Changes to Your Itinerary
+            </Typography>
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              placeholder="Enter your change request here..."
+              value={changeRequest}
+              onChange={(e) => setChangeRequest(e.target.value)}
+              variant="outlined"
+              sx={{ mb: 2 }}
+            />
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={submitting ? <CircularProgress size={20} /> : <Send />}
+              disabled={submitting}
+              onClick={handleSubmitChangeRequest}
+            >
+              Submit Request
+            </Button>
+          </Box>
         </motion.div>
 
         {/* Side Drawer for Journey Details */}
@@ -263,6 +368,17 @@ export default function FinalItineraryPage() {
             ))}
           </List>
         </Drawer>
+
+        {/* Notification Snackbar */}
+        <Snackbar
+          open={notification.open}
+          autoHideDuration={6000}
+          onClose={handleCloseNotification}
+        >
+          <Alert onClose={handleCloseNotification} severity={notification.severity} sx={{ width: '100%' }}>
+            {notification.message}
+          </Alert>
+        </Snackbar>
       </Container>
     </DashboardLayout>
   );

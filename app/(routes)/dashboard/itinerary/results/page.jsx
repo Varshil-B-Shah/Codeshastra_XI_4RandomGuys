@@ -67,7 +67,7 @@ export default function ItineraryResultsPage() {
     
     try {
       // Make POST request to validation endpoint with modified CORS settings
-      const response = await fetch('https://eb80-2401-4900-5091-57d6-1ca2-ef04-2f72-77dd.ngrok-free.app/validate', {
+      const response = await fetch(`https://8518-14-139-125-231.ngrok-free.app/validate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export default function ItineraryResultsPage() {
   // Alternative approach using XMLHttpRequest if fetch with no-cors still fails
   const sendValidationWithXHR = (option) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://c676-14-139-125-231.ngrok-free.app/validate', true);
+    xhr.open('POST', `https://8518-14-139-125-231.ngrok-free.app/validate`, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
@@ -125,7 +125,7 @@ export default function ItineraryResultsPage() {
     
     // Try both methods, one might work
     try {
-      fetch('https://c676-14-139-125-231.ngrok-free.app/validate', {
+      fetch(`https://8518-14-139-125-231.ngrok-free.app/validate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

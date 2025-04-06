@@ -25,12 +25,12 @@ const DashboardSidebar = () => {
       icon: <MdDashboard className="text-xl" />,
       path: "/dashboard",
     },
-    {
-      name: "explore",
-      displayName: "Explore",
-      icon: <FaCompass className="text-xl" />,
-      path: "/dashboard/explore",
-    },
+    // {
+    //   name: "explore",
+    //   displayName: "Explore",
+    //   icon: <FaCompass className="text-xl" />,
+    //   path: "/dashboard/explore",
+    // },
     {
       name: "itinerary",
       displayName: "Itinerary Planner",
@@ -51,7 +51,7 @@ const DashboardSidebar = () => {
     },
     {
       name: "arvr",
-      displayName: "  AR/VR Touring",
+      displayName: "  Virtual Tour",
       icon: <FaVrCardboard className="text-xl" />,
       path: "/dashboard/arvr",
     },
