@@ -182,7 +182,11 @@ const DashboardContent = () => {
               Upcoming Trips
             </h3>
             <button
-              onClick={handlePlanTrip}
+              onClick={
+                tripCount >= 3
+                  ? () => (window.location.href = "/dashboard/pricing")
+                  : handlePlanTrip
+              }
               className={`mt-3 sm:mt-0 ${
                 tripCount >= 3 ? "bg-gray-500 text-white" : "btn-accent"
               } px-5 py-3 rounded-full flex items-center shadow-sm`}
@@ -206,9 +210,11 @@ const DashboardContent = () => {
                 You've reached the limit of 3 free trips. Upgrade your account
                 to plan more trips.
               </p>
-              <button className="ml-4 bg-[#D97706] hover:bg-[#B45309] text-white px-5 py-2 rounded-lg font-medium shadow-sm transition-colors">
-                Upgrade Now
-              </button>
+              <Link href="/dashboard/pricing">
+                <button className="ml-4 bg-[#D97706] hover:bg-[#B45309] text-white px-5 py-2 rounded-lg font-medium shadow-sm transition-colors">
+                  Upgrade Now
+                </button>
+              </Link>
             </div>
           )}
 
@@ -216,7 +222,7 @@ const DashboardContent = () => {
             {upcomingTrips.map((trip, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-scaleIn staggered-item-${(index % 4) + 1}"
+                className={`bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-scaleIn staggered-item-${(index % 4) + 1}`}
               >
                 <div className="h-48 overflow-hidden relative">
                   <img
@@ -410,7 +416,6 @@ const DashboardContent = () => {
                 </div>
               </div>
             ))}
-
             <div className="bg-[#F9FAFB] rounded-xl border border-dashed border-gray-300 flex flex-col items-center justify-center p-8 hover:bg-[#F3F4F6] transition-colors cursor-pointer min-h-[300px]">
               <div className="w-16 h-16 rounded-full bg-[#EBF4FF] flex items-center justify-center mb-4">
                 <FaPlus className="text-[#1A2B6D] text-xl" />
@@ -435,18 +440,7 @@ const DashboardContent = () => {
 const Dashboard = () => {
   return (
     <div className="flex bg-[#F8FAFC] min-h-screen font-['Inter']">
-      {/* DashboardSidebar component is now imported from DashboardLayout */}
-      <div className=" flex-1 ">
-        {/* <header className="mb-8 bg-white p-7 rounded-2xl shadow-sm border border-[#E2E8F0] transition-all hover:shadow-md">
-          <h1 className="text-3xl font-bold text-[#1A202C] font-['Poppins']">
-            Dashboard
-          </h1>
-          <p className="text-[#4A5568] mt-1.5 text-[15px]">
-            Explore India - Discover the beauty of incredible India
-          </p>
-        </header> */}
-        <DashboardContent />
-      </div>
+      <DashboardContent />
     </div>
   );
 };

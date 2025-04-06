@@ -11,6 +11,7 @@ import {
   FaHashtag,
   FaBook,
   FaTrophy,
+  FaAngrycreative,
 } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 
@@ -72,6 +73,12 @@ const DashboardSidebar = () => {
       icon: <FaTrophy className="text-xl" />,
       path: "/dashboard/leaderboard",
     },
+    {
+      name: "translation",
+      displayName: "Translation",
+      icon: <FaBook className="text-xl" />,
+      path: "/dashboard/translator",
+    },
   ];
 
   const isActiveRoute = (path) => {
@@ -122,20 +129,22 @@ const DashboardSidebar = () => {
             PREMIUM FEATURES
           </p>
           <div className="flex items-center py-2.5 px-2 rounded-md bg-gradient-to-r from-[#FF5722]/90 to-[#F9A31A]/90 text-white">
-            <span className="flex-1 text-sm">Upgrade to Pro</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
+            <Link href="/dashboard/pricing" className="flex items-center w-full">
+              <span className="flex-1 text-sm">Upgrade to Pro</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </Link>
           </div>
         </div>
       </nav>
