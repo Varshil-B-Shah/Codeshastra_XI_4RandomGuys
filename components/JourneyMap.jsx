@@ -3,18 +3,148 @@ import { useEffect, useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 
 // Create a component for the map that will be dynamically imported with no SSR
-const JourneyMap = ({ segments = [] }) => {
+const JourneyMap = () => {
   // Client-side only imports for Leaflet
   const [mapReady, setMapReady] = useState(false);
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
   const [timelinePanelVisible, setTimelinePanelVisible] = useState(true);
 
-  useEffect(() => {
-    if (!segments || segments.length === 0) {
-      return;
+  // Hardcoded travel plan data
+  const segments = [
+    {
+      "from": [
+        18.5167,
+        73.8563
+      ],
+      "to": [
+        17.3850,
+        78.4867
+      ],
+      "mode": "plane",
+      "description": "Flight from Pune to Hyderabad with IndiGo, departing April 14, 2025, at 01:50 and arriving at 03:10.",
+      "title": "Pune Airport -> Hyderabad Airport"
+    },
+    {
+      "from": [
+        17.3850,
+        78.4867
+      ],
+      "to": [
+        17.2410,
+        78.3848
+      ],
+      "mode": "car",
+      "description": "Car ride from Rajiv Gandhi International Airport to Novotel Hyderabad Airport.",
+      "title": "Airport -> Novotel Hyderabad Airport"
+    },
+    {
+      "from": [
+        17.2909,
+        78.4761
+      ],
+      "to": [
+        17.3616,
+        78.4747
+      ],
+      "mode": "car",
+      "description": "Car ride from Novotel Hyderabad Airport to Charminar.",
+      "title": "Novotel Hyderabad Airport -> Charminar"
+    },
+    {
+      "from": [
+        17.3616,
+        78.4747
+      ],
+      "to": [
+        17.3825,
+        78.4092
+      ],
+      "mode": "car",
+      "description": "Car ride from Charminar to Golconda Fort.",
+      "title": "Charminar -> Golconda Fort"
+    },
+    {
+      "from": [
+        17.3825,
+        78.4092
+      ],
+      "to": [
+        17.2410,
+        78.3848
+      ],
+      "mode": "car",
+      "description": "Car ride from Golconda Fort back to Novotel Hyderabad Airport.",
+      "title": "Golconda Fort -> Novotel Hyderabad Airport"
+    },
+    {
+      "from": [
+        17.2410,
+        78.3848
+      ],
+      "to": [
+        17.3959,
+        78.4760
+      ],
+      "mode": "car",
+      "description": "Car ride from Novotel Hyderabad Airport to Salar Jung Museum.",
+      "title": "Novotel Hyderabad Airport -> Salar Jung Museum"
+    },
+    {
+      "from": [
+        17.3959,
+        78.4760
+      ],
+      "to": [
+        17.4053,
+        78.3938
+      ],
+      "mode": "car",
+      "description": "Car ride from Salar Jung Museum to Qutb Shahi Tombs.",
+      "title": "Salar Jung Museum -> Qutb Shahi Tombs"
+    },
+    {
+      "from": [
+        17.4053,
+        78.3938
+      ],
+      "to": [
+        17.2410,
+        78.3848
+      ],
+      "mode": "car",
+      "description": "Car ride from Qutb Shahi Tombs back to Novotel Hyderabad Airport.",
+      "title": "Qutb Shahi Tombs -> Novotel Hyderabad Airport"
+    },
+    {
+      "from": [
+        17.2410,
+        78.3848
+      ],
+      "to": [
+        17.3850,
+        78.4867
+      ],
+      "mode": "car",
+      "description": "Car ride from Novotel Hyderabad Airport to Rajiv Gandhi International Airport for departure.",
+      "title": "Novotel Hyderabad Airport -> Hyderabad Airport"
+    },
+    {
+      "from": [
+        17.3850,
+        78.4867
+      ],
+      "to": [
+        18.5167,
+        73.8563
+      ],
+      "mode": "plane",
+      "description": "Flight from Hyderabad to Pune .",
+      "title": "Hyderabad Airport -> Pune Airport"
     }
-    
+  ];
+
+  useEffect(() => {
     // Dynamic imports for Leaflet only (removed leaflet-routing-machine)
     const loadMap = async () => {
       const L = await import('leaflet');
@@ -23,7 +153,7 @@ const JourneyMap = ({ segments = [] }) => {
         // Initialize map
         const map = L.map(mapRef.current, {
           zoomControl: false,
-        }).setView([20.5937, 78.9629], 5); // Default center of India
+        }).setView([17.3850, 78.4867], 10); // Setting center to Hyderabad
         
         // Add zoom control to bottom right
         L.control.zoom({
@@ -252,7 +382,7 @@ const JourneyMap = ({ segments = [] }) => {
               break;
             default:
               timelineColorClass = '#f39c12';
-              timelineIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="12px" height="12px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+              timelineIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="12px" height="12px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5-1.12-2.5-2.5-2.5z"/></svg>';
           }
           
           timelineItems.push({
@@ -340,7 +470,7 @@ const JourneyMap = ({ segments = [] }) => {
         mapInstance.current = null;
       }
     };
-  }, [segments]);
+  }, []);
 
   const toggleTimelinePanel = () => {
     setTimelinePanelVisible(!timelinePanelVisible);

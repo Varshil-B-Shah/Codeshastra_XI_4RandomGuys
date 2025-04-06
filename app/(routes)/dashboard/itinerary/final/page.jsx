@@ -166,44 +166,42 @@ export default function FinalItineraryPage() {
             </Button>
           </Box>
 
+          {/* Journey Map Section */}
+          <StyledPaper elevation={3} sx={{ height: '40vh', p: 0, overflow: 'hidden', position: 'relative', mb: 3 }}>
+            {mapLoading ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Box sx={{ height: '100%', width: '100%' }}>
+                <JourneyMap segments={mapData} />
+              </Box>
+            )}
+            
+            <IconButton 
+              sx={{ 
+                position: 'absolute', 
+                top: 10, 
+                right: 10, 
+                bgcolor: 'white',
+                boxShadow: 2,
+                '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.8)' }
+              }}
+              onClick={toggleDrawer}
+            >
+              <MenuOpen />
+            </IconButton>
+          </StyledPaper>
+
           <Grid container spacing={2}>
             {/* Itinerary Column */}
-            <Grid item xs={12} md={6}>
-              <StyledPaper elevation={3} sx={{ height: '75vh', overflow: 'auto' }}>
+            <Grid item xs={12}>
+              <StyledPaper elevation={3} sx={{ height: '50vh', overflow: 'auto' }}>
                 <ItineraryContent 
                   dangerouslySetInnerHTML={{ 
                     __html: convertTextToHtml(itineraryData) 
                   }} 
                 />
-              </StyledPaper>
-            </Grid>
-
-            {/* Map Column */}
-            <Grid item xs={12} md={6}>
-              <StyledPaper elevation={3} sx={{ height: '75vh', p: 0, overflow: 'hidden', position: 'relative' }}>
-                {mapLoading ? (
-                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                    <CircularProgress />
-                  </Box>
-                ) : (
-                  <Box sx={{ height: '100%', width: '100%' }}>
-                    <JourneyMap segments={mapData} />
-                  </Box>
-                )}
-                
-                <IconButton 
-                  sx={{ 
-                    position: 'absolute', 
-                    top: 10, 
-                    right: 10, 
-                    bgcolor: 'white',
-                    boxShadow: 2,
-                    '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.8)' }
-                  }}
-                  onClick={toggleDrawer}
-                >
-                  <MenuOpen />
-                </IconButton>
               </StyledPaper>
             </Grid>
           </Grid>
