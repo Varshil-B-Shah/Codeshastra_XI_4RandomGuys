@@ -7,7 +7,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Plus,
-  Filter,
   Bookmark,
   Camera,
   ArrowLeft,
@@ -18,7 +17,6 @@ import { gsap } from "gsap";
 export default function TravelScrapBook() {
   const [currentPage, setCurrentPage] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("all");
   const bookRef = useRef(null);
   const [showAddMemory, setShowAddMemory] = useState(false);
   const [flipDirection, setFlipDirection] = useState("next");
@@ -26,56 +24,37 @@ export default function TravelScrapBook() {
   const [notes, setNotes] = useState({});
   const [isEditingNote, setIsEditingNote] = useState(false);
   const [currentEditingMemory, setCurrentEditingMemory] = useState(null);
-
-  const memories = [
+  const [memories, setMemories] = useState([
     {
       id: 1,
-      date: "2023-09-01",
-      title: "Paris Exploration",
-      image: "/api/placeholder/300/200",
+      date: "2024-10-12",
+      title: "Siddhivinayak Darshan",
+      image: "/mumabi1.jpg",
       content:
-        "The Eiffel Tower was even more magnificent than I could have imagined. The view from the top was breathtaking, offering a panoramic view of the entire city.",
-      location: "Paris, France",
+        "Visited the iconic Siddhivinayak Temple in Mumbai today. The spiritual energy and the peaceful ambiance inside the temple were truly uplifting. Joined the early morning aarti and experienced a deep sense of calm and devotion. The intricate architecture of the temple and the devotion of the crowd made it a memorable and soulful experience.",
+      location: "Mumabi, Maharashtra",
     },
     {
       id: 2,
-      date: "2023-10-31",
-      title: "Venice Canals",
-      image: "/api/placeholder/300/200",
+      date: "2024-11-25",
+      title: "Mahakaleshwar Darshan",
+      image: "/ujjain1.jpg",
       content:
-        "Gliding through the historic canals on a gondola was surreal. The architecture dating back centuries created a magical atmosphere.",
-      location: "Venice, Italy",
+        "Had the divine opportunity to visit the sacred Mahakaleshwar Jyotirlinga in Ujjain. The early morning Bhasma Aarti was a once-in-a-lifetime experience, filled with chants, devotion, and an overwhelming sense of spiritual energy. The temple’s ancient architecture and the atmosphere of faith made it an unforgettable journey into the heart of Indian spirituality.",
+      location: "Ujjain, Madhya Pradesh",
     },
     {
       id: 3,
-      date: "2023-12-25",
-      title: "Tokyo Lights",
-      image: "/api/placeholder/300/200",
+      date: "2025-01-06",
+      title: "Konark Temple Visit",
+      image: "/orissa1.jpg",
       content:
-        "The Shibuya Crossing was a symphony of organized chaos. At night, the neon signs illuminated the streets creating a vibrant atmosphere.",
-      location: "Tokyo, Japan",
+        "Visited the stunning Konark Sun Temple, famous for its chariot-like design and intricate carvings. A true masterpiece of ancient Indian architecture.",
+      location: "Konark, Odisha",
     },
-    {
-      id: 4,
-      date: "2024-02-14",
-      title: "New York Weekend",
-      image: "/api/placeholder/300/200",
-      content:
-        "Central Park in winter was like stepping into a different world. The snow-covered landscape provided a serene contrast to the bustling city.",
-      location: "New York, USA",
-    },
-    {
-      id: 5,
-      date: "2024-06-30",
-      title: "Santorini Sunset",
-      image: "/api/placeholder/300/200",
-      content:
-        "Watching the sunset from Oia was an unforgettable experience. The white buildings contrasted beautifully with the deep blue of the Aegean Sea.",
-      location: "Santorini, Greece",
-    },
-  ];
+  ]);
 
-  const totalPages = Math.ceil(memories.length / 2) * 2 + 2; // +2 for cover and intro pages
+  const totalPages = memories.length * 2 + 2; // 2 pages per memory + 2 for cover and intro
 
   useEffect(() => {
     // Load saved notes from localStorage
@@ -97,15 +76,11 @@ export default function TravelScrapBook() {
     localStorage.setItem("travelNotes", JSON.stringify(notes));
   }, [notes]);
 
-  const filterMemories = (filter) => {
-    setActiveFilter(filter);
-  };
-
   const playPageFlipSound = () => {
     // Skip attempting to play sound if no audio file is available
     // We'll use this as a placeholder function for when you add the actual sound file
-    console.log('Page flip sound would play here');
-    
+    console.log("Page flip sound would play here");
+
     // Uncomment this when you have the actual sound file available
     /*
     try {
@@ -236,27 +211,27 @@ export default function TravelScrapBook() {
     if (pageIndex === 0) {
       return {
         front: (
-          <div className="h-full w-full relative bg-blue-800 rounded-l-lg">
+          <div className="h-full w-full relative bg-[#8b4513] rounded-l-lg">
             <img
               src="/api/placeholder/500/700"
               alt="Travel Journal Cover"
               className="h-full w-full object-cover rounded-l-lg opacity-50"
             />
-            <div className="absolute inset-0 bg-blue-900/70 flex flex-col items-center justify-center rounded-l-lg">
-              <h2 className="text-4xl font-bold text-white mb-3">
+            <div className="absolute inset-0 bg-[#8b4513]/70 flex flex-col items-center justify-center rounded-l-lg">
+              <h2 className="text-4xl font-handwriting text-[#f4e4bc] mb-3 transform -rotate-2">
                 Travel Journal
               </h2>
-              <div className="w-20 h-1 bg-blue-300 mb-6"></div>
-              <p className="text-blue-100 text-lg mb-8">
+              <div className="w-20 h-1 bg-[#d4b483] mb-6"></div>
+              <p className="text-[#f4e4bc] text-lg mb-8 font-handwriting">
                 Capturing Moments Around the World
               </p>
             </div>
           </div>
         ),
         back: (
-          <div className="h-full w-full flex items-center justify-center p-8 bg-blue-50">
+          <div className="h-full w-full flex items-center justify-center p-8 bg-[#f4e4bc]">
             <div className="text-center p-8 rounded-lg">
-              <p className="text-2xl text-blue-900 italic">
+              <p className="text-2xl text-[#5c3518] italic">
                 This journal belongs to...
               </p>
             </div>
@@ -269,25 +244,27 @@ export default function TravelScrapBook() {
     if (pageIndex === 1) {
       return {
         front: (
-          <div className="h-full w-full flex items-center justify-center p-8 bg-blue-50">
+          <div className="h-full w-full flex items-center justify-center p-8 bg-[#f4e4bc]">
             <div className="text-center p-8 rounded-lg">
-              <p className="text-3xl text-blue-900 mb-6">Alex Morgan</p>
-              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-blue-700">
+              <p className="text-3xl text-[#5c3518] mb-6">Sachin</p>
+              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-[#8b4513]">
                 <img
-                  src="/api/placeholder/128/128"
+                  src="/pfp.jpg"
                   alt="Journal Owner"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <p className="mt-6 text-blue-800 italic">2023-2024 Adventures</p>
+              <p className="mt-6 text-[#5c3518] italic">My Adventures</p>
             </div>
           </div>
         ),
         back: (
-          <div className="h-full w-full flex items-center justify-center p-8 bg-blue-50">
+          <div className="h-full w-full flex items-center justify-center p-8 bg-[#f4e4bc]">
             <div className="text-center p-8 rounded-lg">
-              <p className="text-xl text-blue-900 italic">Begin Your Journey</p>
-              <p className="mt-4 text-blue-700">
+              <p className="text-xl text-[#5c3518] italic">
+                Begin Your Journey
+              </p>
+              <p className="mt-4 text-[#8b4513]">
                 Each page contains travel memories from around the world
               </p>
             </div>
@@ -301,125 +278,76 @@ export default function TravelScrapBook() {
 
     if (memoryIndex >= 0 && memoryIndex < memories.length) {
       const memory = memories[memoryIndex];
+      const isLeftPage = pageIndex % 2 === 1; // Odd pages are left pages
 
-      return {
-        front: (
-          <div className="h-full w-full flex flex-col p-6 bg-white">
-            <div className="flex-1 flex flex-col p-6 rounded-lg border border-blue-100 shadow-md">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold text-blue-900">
-                  {memory.title}
-                </h3>
-                <span className="text-blue-800 bg-blue-50 px-3 py-1 rounded-full text-sm border border-blue-200">
-                  {new Date(memory.date).toLocaleDateString(undefined, {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </span>
-              </div>
-
-              <div className="flex-1 flex flex-col gap-4">
+      if (isLeftPage) {
+        return {
+          front: (
+            <div className="h-full w-full flex flex-col p-6 bg-[#f4e4bc]">
+              <div className="flex-1 flex p-6 rounded-lg border-2 border-[#8b4513] shadow-vintage">
                 <div className="w-full">
-                  <div className="bg-white p-2 shadow-md transform hover:scale-105 transition-transform relative">
+                  <div className="memory-image-wrapper h-full">
+                    <div className="tape-corner tape-corner-tl"></div>
+                    <div className="tape-corner tape-corner-br"></div>
                     <img
                       src={memory.image}
                       alt={memory.title}
-                      className="w-full h-48 object-cover"
+                      className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-4 right-4 bg-blue-600 p-2 rounded-full shadow-sm text-white text-xs">
+                    <div className="absolute top-4 right-4 memory-location px-3 py-1 rounded-lg shadow-sm">
                       {memory.location}
                     </div>
                   </div>
                 </div>
-                <div className="text-blue-900 leading-relaxed flex-1">
-                  <p className="text-base">{memory.content}</p>
-                </div>
-              </div>
-
-              <div className="text-center text-blue-600 mt-4 italic text-sm">
-                {pageIndex + 1}
               </div>
             </div>
-          </div>
-        ),
-        back: (
-          <div className="h-full w-full flex flex-col p-6 bg-white">
-            <div className="flex-1 flex flex-col p-6 rounded-lg border border-blue-100 shadow-md">
-              <div className="text-center mb-6">
-                <h3 className="text-xl italic text-blue-800">
-                  Notes about {memory.title}
-                </h3>
-              </div>
-
-              <div className="flex-1 flex flex-col">
-                <div className="flex-1 border-b border-t border-blue-200 py-4">
-                  {isEditingNote && currentEditingMemory === memory.id ? (
-                    <div className="w-full">
-                      <textarea
-                        className="w-full h-48 bg-blue-50 rounded border border-blue-300 p-2 focus:outline-none focus:border-blue-500"
-                        value={notes[memory.id] || ""}
-                        onChange={(e) =>
-                          handleNoteChange(memory.id, e.target.value)
-                        }
-                        placeholder="Write your travel notes here..."
-                      ></textarea>
-                      <div className="flex justify-end mt-2">
-                        <button
-                          onClick={saveNote}
-                          className="bg-blue-600 text-white px-4 py-1 rounded flex items-center hover:bg-blue-700 transition-colors"
-                        >
-                          <Save className="w-4 h-4 mr-1" /> Save
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="w-full">
-                      <p className="text-blue-700 italic text-sm mb-2">
-                        Your notes:
-                      </p>
-                      <div
-                        className="w-full h-48 bg-blue-50 rounded border border-blue-300 p-3 overflow-auto"
-                        onClick={() => {
-                          setIsEditingNote(true);
-                          setCurrentEditingMemory(memory.id);
-                        }}
-                      >
-                        {notes[memory.id] || (
-                          <span className="text-blue-400 italic">
-                            Click to add notes...
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  )}
+          ),
+          back: null,
+        };
+      } else {
+        return {
+          front: (
+            <div className="h-full w-full flex flex-col p-6 bg-[#f4e4bc]">
+              <div className="flex-1 flex flex-col p-6 rounded-lg border-2 border-[#8b4513] shadow-vintage">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="memory-title text-2xl">{memory.title}</h3>
+                  <span className="memory-date px-3 py-1 rounded-full text-sm">
+                    {new Date(memory.date).toLocaleDateString()}
+                  </span>
                 </div>
 
-                <div className="mt-6">
-                  <p className="text-blue-700 italic text-sm mb-2">
-                    Add a photo:
-                  </p>
-                  <div className="w-full h-32 bg-blue-50 rounded border border-blue-300 flex items-center justify-center hover:bg-blue-100 cursor-pointer transition-colors">
-                    <Camera className="w-6 h-6 text-blue-300" />
+                <div className="bg-white/50 p-6 rounded-lg border border-[#8b4513] flex-1">
+                  <div className="memory-content">
+                    <p className="text-base">{memory.content}</p>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex justify-between items-center">
+                  <div className="text-[#8b4513] italic text-sm">
+                    {pageIndex + 1}
+                  </div>
+                  <div className="flex items-center">
+                    <img
+                      src="/polaroid-icon.png"
+                      alt="Memory stamp"
+                      className="w-8 h-8 opacity-50"
+                    />
                   </div>
                 </div>
               </div>
-
-              <div className="text-center text-blue-600 mt-4 italic text-sm">
-                {pageIndex + 2}
-              </div>
             </div>
-          </div>
-        ),
-      };
+          ),
+          back: null,
+        };
+      }
     }
 
     // End pages
     return {
       front: (
-        <div className="h-full w-full flex items-center justify-center p-8 bg-blue-50">
+        <div className="h-full w-full flex items-center justify-center p-8 bg-[#f4e4bc]">
           <div className="text-center p-8 rounded-lg shadow-md bg-white">
-            <div className="text-blue-900 text-xl mb-6">
+            <div className="text-[#8b4513] text-xl mb-6">
               Add more memories to your journey...
             </div>
             <button
@@ -432,9 +360,9 @@ export default function TravelScrapBook() {
         </div>
       ),
       back: (
-        <div className="h-full w-full flex items-center justify-center p-8 bg-blue-50">
+        <div className="h-full w-full flex items-center justify-center p-8 bg-[#f4e4bc]">
           <div className="text-center p-8 rounded-lg shadow-md bg-white">
-            <div className="text-center text-blue-900 text-xl">
+            <div className="text-center text-[#5c3518] text-xl">
               End of Journal
             </div>
           </div>
@@ -443,9 +371,31 @@ export default function TravelScrapBook() {
     };
   };
 
+  const handleAddMemory = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const imageFile = formData.get("image");
+
+    const newMemory = {
+      id: memories.length + 1,
+      title: formData.get("title"),
+      location: formData.get("location"),
+      date: formData.get("date"),
+      content: formData.get("content"),
+      image: URL.createObjectURL(imageFile),
+    };
+
+    setMemories((prev) => [...prev, newMemory]);
+    setShowAddMemory(false);
+
+    // Turn to the new memory's pages
+    const newMemoryStartPage = memories.length * 2 + 2;
+    setCurrentPage(newMemoryStartPage);
+  };
+
   return (
     <DashboardLayout>
-      <div className="flex flex-col items-center py-8 bg-gradient-to-b from-blue-50 to-white min-h-screen">
+      <div className="flex flex-col items-center py-8 bg-[#f4e4bc] min-h-screen">
         <div className="w-full max-w-6xl px-4">
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center">
@@ -460,81 +410,11 @@ export default function TravelScrapBook() {
                 Travel Memories
               </h1>
             </div>
-            <div className="flex space-x-2">
-              <button
-                onClick={() => setShowAddMemory(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
-              >
-                <Plus className="w-5 h-5 mr-1" /> Add Memory
-              </button>
-              <button className="bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 px-4 py-2 rounded-lg flex items-center transition-colors">
-                <Filter className="w-5 h-5 mr-1" /> Filter
-              </button>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap mb-8 gap-2">
             <button
-              onClick={() => filterMemories("all")}
-              className={`px-4 py-2 rounded-t-lg flex items-center ${
-                activeFilter === "all"
-                  ? "bg-blue-800 text-white"
-                  : "bg-blue-200 text-blue-900"
-              }`}
+              onClick={() => setShowAddMemory(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
             >
-              <Bookmark
-                className={`w-4 h-4 mr-1 ${
-                  activeFilter === "all" ? "text-blue-200" : "text-blue-700"
-                }`}
-              />
-              All Destinations
-            </button>
-            <button
-              onClick={() => filterMemories("europe")}
-              className={`px-4 py-2 rounded-t-lg flex items-center ${
-                activeFilter === "europe"
-                  ? "bg-blue-800 text-white"
-                  : "bg-blue-200 text-blue-900"
-              }`}
-            >
-              <Bookmark
-                className={`w-4 h-4 mr-1 ${
-                  activeFilter === "europe" ? "text-blue-200" : "text-blue-700"
-                }`}
-              />
-              Europe
-            </button>
-            <button
-              onClick={() => filterMemories("asia")}
-              className={`px-4 py-2 rounded-t-lg flex items-center ${
-                activeFilter === "asia"
-                  ? "bg-blue-800 text-white"
-                  : "bg-blue-200 text-blue-900"
-              }`}
-            >
-              <Bookmark
-                className={`w-4 h-4 mr-1 ${
-                  activeFilter === "asia" ? "text-blue-200" : "text-blue-700"
-                }`}
-              />
-              Asia
-            </button>
-            <button
-              onClick={() => filterMemories("americas")}
-              className={`px-4 py-2 rounded-t-lg flex items-center ${
-                activeFilter === "americas"
-                  ? "bg-blue-800 text-white"
-                  : "bg-blue-200 text-blue-900"
-              }`}
-            >
-              <Bookmark
-                className={`w-4 h-4 mr-1 ${
-                  activeFilter === "americas"
-                    ? "text-blue-200"
-                    : "text-blue-700"
-                }`}
-              />
-              Americas
+              <Plus className="w-5 h-5 mr-1" /> Add Memory
             </button>
           </div>
 
@@ -549,16 +429,15 @@ export default function TravelScrapBook() {
               onClick={() => !isBookOpen && openBook()}
             >
               {/* Book binding/spine */}
-              <div className="absolute h-full w-6 top-0 left-1/2 -translate-x-3 z-50 flex flex-col">
-                <div className="h-full w-full bg-blue-950 flex flex-col items-center justify-center">
-                  <div className="w-1 h-16 bg-blue-900 rounded-full my-2"></div>
-                  <div className="w-1 h-16 bg-blue-900 rounded-full my-2"></div>
-                  <div className="w-1 h-16 bg-blue-900 rounded-full my-2"></div>
+              <div className="absolute h-full w-6 top-0 left-1/2 -translate-x-3 z-50 flex flex-col book-spine">
+                <div className="h-full w-full flex flex-col items-center justify-center">
+                  <div className="w-4 h-24 bg-[#5c3518] rounded-full my-2 opacity-30"></div>
+                  <div className="w-4 h-24 bg-[#5c3518] rounded-full my-2 opacity-30"></div>
                 </div>
               </div>
 
               {/* Book base - closed book by default */}
-              <div className="absolute inset-0 bg-blue-800 rounded-lg shadow-inner"></div>
+              <div className="absolute inset-0 bg-[#5c3518] rounded-lg shadow-inner"></div>
 
               {/* Left page container */}
               <div
@@ -582,7 +461,7 @@ export default function TravelScrapBook() {
                 style={{ transformOrigin: "left center" }}
               >
                 {currentPage === 0 && !isFlipping ? (
-                  <div className="w-full h-full bg-blue-900"></div>
+                  <div className="w-full h-full bg-[#8b4513]"></div>
                 ) : (
                   <div className="w-full h-full">
                     {getPageContent(currentPage + 1).front}
@@ -667,8 +546,8 @@ export default function TravelScrapBook() {
 
               {/* Click to open prompt if book is closed */}
               {!isBookOpen && (
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="bg-white/80 px-6 py-3 rounded-full text-blue-900 font-medium animate-pulse shadow-lg">
+                <div className="absolute inset-0 flex items-center justify-center z-[100]">
+                  <div className="bg-white/80 px-6 py-3 rounded-full text-[#8b4513] font-medium animate-pulse shadow-lg">
                     Click to open journal
                   </div>
                 </div>
@@ -684,15 +563,15 @@ export default function TravelScrapBook() {
                 disabled={currentPage === 0 || isFlipping}
                 className={`flex items-center px-5 py-2 rounded-full ${
                   currentPage === 0 || isFlipping
-                    ? "bg-blue-200 text-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 text-white hover:bg-blue-700"
+                    ? "bg-[#d4b483] text-[#8b4513] cursor-not-allowed"
+                    : "bg-[#8b4513] text-[#f4e4bc] hover:bg-[#5c3518]"
                 } transition-colors`}
               >
                 <ChevronLeft className="w-5 h-5 mr-1" />
                 Previous
               </button>
 
-              <div className="text-blue-900">
+              <div className="text-[#5c3518] font-handwriting">
                 {currentPage === 0
                   ? "Cover"
                   : `Pages ${currentPage + 1}-${currentPage + 2}`}
@@ -703,8 +582,8 @@ export default function TravelScrapBook() {
                 disabled={currentPage >= totalPages - 2 || isFlipping}
                 className={`flex items-center px-5 py-2 rounded-full ${
                   currentPage >= totalPages - 2 || isFlipping
-                    ? "bg-blue-200 text-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 text-white hover:bg-blue-700"
+                    ? "bg-[#d4b483] text-[#8b4513] cursor-not-allowed"
+                    : "bg-[#8b4513] text-[#f4e4bc] hover:bg-[#5c3518]"
                 } transition-colors`}
               >
                 Next
@@ -713,69 +592,83 @@ export default function TravelScrapBook() {
             </div>
           )}
 
-          {/* Add Memory Modal - to be implemented */}
+          {/* Add Memory Modal */}
           {showAddMemory && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-lg max-w-lg w-full p-6 shadow-xl">
-                <h3 className="text-xl font-bold text-blue-900 mb-4">
+              <div className="bg-[#f4e4bc] rounded-lg max-w-lg w-full p-6 shadow-xl border-2 border-[#8b4513]">
+                <h3 className="text-xl font-handwriting text-[#5c3518] mb-4">
                   Add New Memory
                 </h3>
 
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleAddMemory}>
                   <div>
-                    <label className="block text-blue-800 mb-1">Title</label>
+                    <label className="block text-[#8b4513] mb-1">Title</label>
                     <input
                       type="text"
-                      className="w-full p-2 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      name="title"
+                      className="w-full p-2 border-2 border-[#8b4513] rounded bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#5c3518]"
                       placeholder="Memory title"
+                      required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-blue-800 mb-1">Location</label>
+                    <label className="block text-[#8b4513] mb-1">
+                      Location
+                    </label>
                     <input
                       type="text"
-                      className="w-full p-2 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      name="location"
+                      className="w-full p-2 border-2 border-[#8b4513] rounded bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#5c3518]"
                       placeholder="City, Country"
+                      required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-blue-800 mb-1">Date</label>
+                    <label className="block text-[#8b4513] mb-1">Date</label>
                     <input
                       type="date"
-                      className="w-full p-2 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      name="date"
+                      className="w-full p-2 border-2 border-[#8b4513] rounded bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#5c3518]"
+                      required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-blue-800 mb-1">
+                    <label className="block text-[#8b4513] mb-1">
                       Description
                     </label>
                     <textarea
-                      className="w-full p-2 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+                      name="content"
+                      className="w-full p-2 border-2 border-[#8b4513] rounded bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#5c3518] h-32"
                       placeholder="Write about your memory..."
+                      required
                     ></textarea>
                   </div>
 
                   <div>
-                    <label className="block text-blue-800 mb-1">Photo</label>
-                    <div className="w-full h-32 border border-dashed border-blue-300 rounded flex items-center justify-center bg-blue-50 cursor-pointer hover:bg-blue-100">
-                      <Camera className="w-8 h-8 text-blue-400" />
-                    </div>
+                    <label className="block text-[#8b4513] mb-1">Photo</label>
+                    <input
+                      type="file"
+                      name="image"
+                      accept="image/*"
+                      className="w-full p-2 border-2 border-[#8b4513] rounded bg-white/80 focus:outline-none focus:ring-2 focus:ring-[#5c3518]"
+                      required
+                    />
                   </div>
 
                   <div className="flex justify-end space-x-3">
                     <button
                       type="button"
                       onClick={() => setShowAddMemory(false)}
-                      className="px-4 py-2 bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition-colors"
+                      className="px-4 py-2 bg-[#d4b483] text-[#5c3518] rounded hover:bg-[#c4a473] transition-colors"
                     >
                       Cancel
                     </button>
                     <button
-                      type="button"
-                      className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                      type="submit"
+                      className="px-4 py-2 bg-[#8b4513] text-[#f4e4bc] rounded hover:bg-[#5c3518] transition-colors"
                     >
                       Save Memory
                     </button>
