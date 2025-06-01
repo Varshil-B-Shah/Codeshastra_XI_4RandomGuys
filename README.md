@@ -6,7 +6,7 @@ Welcome to **Explore India**, an immersive and intelligent travel platform that 
 
 ## 🎥 Watch the Demo
 
-[![Explore India Demo](https://img.youtube.com/vi/YOUR_YOUTUBE_VIDEO_ID/0.jpg)]([https://www.youtube.com/watch?v=YOUR_YOUTUBE_VIDEO_ID](https://www.youtube.com/watch?v=IXLj7SN36DY))  
+[![Explore India Demo](https://img.youtube.com/vi/IXLj7SN36DY/0.jpg)](https://www.youtube.com/watch?v=IXLj7SN36DY)   
 Click above to watch the full video demonstration on YouTube.
 
 ---
